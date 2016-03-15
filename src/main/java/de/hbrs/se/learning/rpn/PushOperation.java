@@ -9,6 +9,10 @@ public class PushOperation implements RpnOperation {
         this.value = value;
     }
 
+    public double getValue() {
+        return value;
+    }
+
     @Override
     public void execute(ArrayBackedStack<Double> stack) {
         stack.push(value);
