@@ -1,7 +1,7 @@
 package de.hbrs.se.learning.it;
 
-import de.hbrs.se.learning.service.RpnParser;
 import de.hbrs.se.learning.service.RpnExecutor;
+import de.hbrs.se.learning.service.RpnParser;
 import org.junit.Before;
 import org.junit.Test;
 

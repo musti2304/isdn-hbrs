@@ -2,12 +2,16 @@ package de.hbrs.se.learning.service;
 
 import de.hbrs.se.learning.collections.ArrayBackedStack;
 import de.hbrs.se.learning.rpn.RpnOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RpnExecutor {
     private RpnParser parser;
 
+    @Autowired
     public RpnExecutor(RpnParser parser) {
         this.parser = parser;
     }
