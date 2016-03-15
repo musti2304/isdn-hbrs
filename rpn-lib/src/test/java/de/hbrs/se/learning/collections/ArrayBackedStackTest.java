@@ -67,6 +67,11 @@ public class ArrayBackedStackTest {
         Assert.assertThat(stack.size(), CoreMatchers.is(1));
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void popOnEmptyStackYieldsException() {
+        stack.pop();
+    }
+
     @Test
     public void stackIsGeneric() {
         ArrayBackedStack<String> otherStack = new ArrayBackedStack<>();

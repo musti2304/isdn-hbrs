@@ -29,6 +29,9 @@ public class ArrayBackedStack<E> {
     }
 
     public E pop() {
+        if (nextFreePosition == 0)
+            throw new IllegalStateException("Stack is empty");
+
         nextFreePosition--;
         E result = items[nextFreePosition];
         items[nextFreePosition] = null;
