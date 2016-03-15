@@ -1,6 +1,7 @@
 package de.hbrs.se.learning.service;
 
 import de.hbrs.se.learning.rpn.*;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+@Service
 public class RpnParser {
 
     private Map<String, Function<String, RpnOperation>> functions;
