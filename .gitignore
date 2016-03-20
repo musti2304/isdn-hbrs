@@ -1,5 +1,3 @@
-repository
-
 # maven
 target/
 pom.xml.tag
@@ -7,24 +5,3 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
-
-# IDEA IntelliJ
-*.iml
-.idea/
-*.ipr
-*.iws
-.idea_modules/
-atlassian-ide-plugin.xml
-
-
-# Eclipse
-.settings/
-.classpath
-.project
-.metadata
-*.tmp
-*.bak
-*.swp
-.loadpath
-.externalToolBuilders/
-*.launch
