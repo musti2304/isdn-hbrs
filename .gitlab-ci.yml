@@ -7,8 +7,8 @@ before_script:
 
 rspec:
   script:
-    - bundle exec daredevil
+    - bundle exec batman
 
 rubocop:
   script:
-    - bundle exec gotham
+    - bundle exec daredevil
