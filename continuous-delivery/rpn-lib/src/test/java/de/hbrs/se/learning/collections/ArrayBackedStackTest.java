@@ -79,4 +79,17 @@ public class ArrayBackedStackTest {
         otherStack.push("World");
         Assert.assertThat(otherStack.pop(), CoreMatchers.is(CoreMatchers.equalTo("World")));
     }
+    
+    @Test
+    public void stackHasRightCapacity() {
+    	stack.push(1.0);
+    	Assert.assertThat(stack.getCapacity(), CoreMatchers.is(2));
+    	stack.push(2.0);
+    	Assert.assertThat(stack.getCapacity(), CoreMatchers.is(4));
+    	stack.push(3.0);
+    	Assert.assertThat(stack.getCapacity(), CoreMatchers.is(4));
+    	stack.push(4.0);
+    	Assert.assertThat(stack.getCapacity(), CoreMatchers.is(8));
+    }
+    
 }

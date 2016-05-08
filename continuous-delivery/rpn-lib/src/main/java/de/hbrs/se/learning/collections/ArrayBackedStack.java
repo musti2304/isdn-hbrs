@@ -37,4 +37,10 @@ public class ArrayBackedStack<E> {
         items[nextFreePosition] = null;
         return result;
     }
+    
+    public int getCapacity() {
+    	assureFreeCapacity();
+    	return items.length;
+    }
+    
 }
