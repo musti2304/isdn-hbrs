@@ -15,4 +15,5 @@ abstract class AbstractBinaryRpnOperation extends AbstractRpnOperation {
     }
 
     protected abstract double applyOperation(double lhs, double rhs);
+
 }

@@ -20,6 +20,7 @@ public class RpnParser {
         functions.put("-", s -> new SubtractOperation());
         functions.put("\\*", s -> new MultiplyOperation());
         functions.put("/", s -> new DivideOperation());
+        functions.put("root", s -> new RootOperation());
         functions.put("\\d+|\\d*\\.\\d+", s -> new PushOperation(Float.parseFloat(s)));
     }
 
