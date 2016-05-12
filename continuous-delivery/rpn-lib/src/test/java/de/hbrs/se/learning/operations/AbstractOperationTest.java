@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-abstract class AbstractOperationTest {
+public abstract class AbstractOperationTest {
 
     @Mock
     protected ArrayBackedStack<Double> stack;

@@ -8,35 +8,35 @@ import org.junit.Test;
 public class RootOperationTest extends AbstractOperationTest {
 	
 	RootOperation rootOperation;
-	
-	@Before 
-	public void setUp() {
-		rootOperation = new RootOperation();
-	}
+//	
+//	@Before 
+//	public void setUp() {
+//		rootOperation = new RootOperation();
+//	}
 
 	@Test
 	public void secondRootOfTwentyFive() {
-		Assert.assertEquals(5.0, rootOperation.applyOperation(25.0, 2.0), 0);
+		testOperation(20, 2, 25, 5);
 	}
 	
 	@Test
 	public void thirdRootOfSixtyFour() {
-		Assert.assertEquals(4.0, rootOperation.applyOperation(64.0, 3.0), 0);
+		testOperation(20, 3, 64, 4);
 	}
 	
 	@Test
 	public void thirdRootOfHundredTwentyFive() {
-		Assert.assertEquals(5.0, rootOperation.applyOperation(125.0, 3.0), 0);
+		testOperation(20, 3, 125, 5);
 	}
 	
 	@Test
 	public void fourthRootOfSixteen() {
-		Assert.assertEquals(2.0, rootOperation.applyOperation(16.0, 4.0), 0);
+		testOperation(20, 4, 16, 2);
 	}
 	
 	@Test
 	public void fourthRootOfSixHundredTwentyFive() {
-		Assert.assertEquals(5.0, rootOperation.applyOperation(625.0, 4.0), 0);
+		testOperation(20, 4, 625, 5);
 	}
 	
 	@Override
