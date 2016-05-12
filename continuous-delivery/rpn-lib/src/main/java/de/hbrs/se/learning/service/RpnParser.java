@@ -21,6 +21,7 @@ public class RpnParser {
         functions.put("\\*", s -> new MultiplyOperation());
         functions.put("/", s -> new DivideOperation());
         functions.put("root", s -> new RootOperation());
+        functions.put("abs", s -> new AbsoluteOperation());
         functions.put("\\d+|\\d*\\.\\d+", s -> new PushOperation(Float.parseFloat(s)));
         functions.put("sqrt",s -> new SquareRootOperation());
     }
