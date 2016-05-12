@@ -19,8 +19,15 @@ public class RpnExecutorIT {
 
     @Test
     public void testRpnExecution() {
-        assertThat(executor.execute("3 4 + 3 +"), is(10.0));
+        // Add operation
+    	assertThat(executor.execute("3 4 + 3 +"), is(10.0));
+    	// Subtract operation
+//        assertThat(executor.execute(""), is(value));
+        
+        assertThat(executor.execute("25 sqrt"), is(5.0));
+        
         assertThat(executor.execute("3 20 5 / +"), is(7.0));
+        
     }
 
     @Test(expected = IllegalArgumentException.class)

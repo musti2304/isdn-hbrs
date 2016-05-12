@@ -17,7 +17,7 @@ public class WebdriverIT extends AbstractWebdriverIT {
         driver.findElement(By.id("submit")).click();
         assertThat(driver.findElement(By.id("result")).getText(), is(equalTo("5.0")));
         assertThat(driver.findElement(By.id("oldExpression")).getText(), is(equalTo("3 2 +")));
-    }
+    } 
 
     @Test
     public void simpleFailureTest() {

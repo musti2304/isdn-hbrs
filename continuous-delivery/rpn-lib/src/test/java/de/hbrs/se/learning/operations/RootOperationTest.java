@@ -7,13 +7,11 @@ import org.junit.Test;
 
 public class RootOperationTest extends AbstractOperationTest {
 	
-	RootOperation rootOperation;
-//	
-//	@Before 
-//	public void setUp() {
-//		rootOperation = new RootOperation();
-//	}
-
+	@Override
+	protected RpnOperation createOperationObject() {
+		return new RootOperation();
+	}
+	
 	@Test
 	public void secondRootOfTwentyFive() {
 		testOperation(20, 2, 25, 5);
@@ -37,11 +35,6 @@ public class RootOperationTest extends AbstractOperationTest {
 	@Test
 	public void fourthRootOfSixHundredTwentyFive() {
 		testOperation(20, 4, 625, 5);
-	}
-	
-	@Override
-	protected RpnOperation createOperationObject() {
-		return new RootOperation();
 	}
 
 }

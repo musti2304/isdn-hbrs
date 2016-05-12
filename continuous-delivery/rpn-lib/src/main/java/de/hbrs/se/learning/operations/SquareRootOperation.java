@@ -4,7 +4,7 @@ public class SquareRootOperation extends AbstractUnaryRpnOperation{
 
 	@Override
 	protected double applyOperation(double lhs) {
-		return Math.sin(lhs);
+		return Math.sqrt(lhs);
 	}
 
 }

@@ -4,7 +4,10 @@ public class AbsoluteOperation extends AbstractUnaryRpnOperation {
 
 	@Override
 	protected double applyOperation(double lhs) {
-		return Math.abs(lhs);
+		if(lhs < 0) {
+			return Math.abs(lhs);
+		} else {
+			return Math.abs(lhs);
+		}
 	}
-
 }
