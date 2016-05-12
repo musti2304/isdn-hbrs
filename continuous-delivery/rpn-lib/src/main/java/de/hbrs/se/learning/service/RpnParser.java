@@ -24,6 +24,7 @@ public class RpnParser {
         functions.put("abs", s -> new AbsoluteOperation());
         functions.put("\\d+|\\d*\\.\\d+", s -> new PushOperation(Float.parseFloat(s)));
         functions.put("sqrt",s -> new SquareRootOperation());
+        functions.put("sin",s -> new SinOperation());
     }
 
     public List<RpnOperation> parse(String expression) {
