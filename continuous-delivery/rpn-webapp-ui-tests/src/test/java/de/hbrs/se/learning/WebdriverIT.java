@@ -2,6 +2,8 @@ package de.hbrs.se.learning;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ById;
+import org.springframework.test.context.TestExecutionListeners;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,6 +27,18 @@ public class WebdriverIT extends AbstractWebdriverIT {
         driver.findElement(By.id("expression")).sendKeys("error!");
         driver.findElement(By.id("submit")).click();
         assertThat(driver.findElement(By.id("errorMessage")).getText(), is(equalTo("Error: Unknown string: error!")));
+    }
+    
+    // TODO
+    // Implement UI Tests for different operations
+    @Test
+    public void testNewOperation() {
+    	driver.findElement(By.id("expression")).clear();
+    	driver.findElement(By.id("expression")).sendKeys("");
+        driver.findElement(By.id("submit")).click();
+        assertThat(driver.findElement(By.id("result")).getText(), is(equalTo("")));
+        assertThat(driver.findElement(By.id("oldExpression")).getText(), is(equalTo("")));
+        
     }
 
 }
