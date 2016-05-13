@@ -2,7 +2,7 @@ package de.hbrs.se.learning.operations;
 
 import de.hbrs.se.learning.collections.ArrayBackedStack;
 
-abstract class AbstractBinaryRpnOperation extends AbstractRpnOperation {
+public abstract class AbstractBinaryRpnOperation extends AbstractRpnOperation {
     @Override
     public void execute(ArrayBackedStack<Double> stack) {
         assertMinSize(stack, 2);
@@ -15,4 +15,5 @@ abstract class AbstractBinaryRpnOperation extends AbstractRpnOperation {
     }
 
     protected abstract double applyOperation(double lhs, double rhs);
+
 }

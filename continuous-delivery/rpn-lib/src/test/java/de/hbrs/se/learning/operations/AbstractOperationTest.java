@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-abstract class AbstractOperationTest {
+public abstract class AbstractOperationTest {
 
     @Mock
     protected ArrayBackedStack<Double> stack;
@@ -24,6 +24,15 @@ abstract class AbstractOperationTest {
         verify(stack).push(result);
     }
 
+    
+    protected void testOperation(int size, double lhs, double result) {
+        when(stack.size()).thenReturn(size);
+    	when(stack.pop()).thenReturn(lhs);
+    	createOperationObject().execute(stack);
+    	verify(stack).push(result);
+	}
+    
+    
     @Test(expected = IllegalStateException.class)
     public void emptyStackThrowException1() {
         when(stack.size()).thenReturn(1);
