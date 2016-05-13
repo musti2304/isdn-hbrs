@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,8 +29,8 @@ public abstract class AbstractWebdriverIT {
 
     @BeforeClass
     public static void setup() {
-        driver = new HtmlUnitDriver();
-        // driver = new FirefoxDriver();
+//       driver = new HtmlUnitDriver();
+         driver = new FirefoxDriver();
     }
 
     @AfterClass
