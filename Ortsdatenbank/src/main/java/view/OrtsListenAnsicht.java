@@ -48,14 +48,14 @@ public class OrtsListenAnsicht {
     }
 
     public void show(final Stage primaryStage) {
-        primaryStage.setTitle("Meine Orte von Interesse");
+        primaryStage.setTitle("My POIs");
 
         BorderPane borderPane = new BorderPane();
         
         TableView<Ort> table = new TableView<>();
 
         TableColumn<Ort,String> nameCol = new TableColumn<Ort, String>("Name");
-        nameCol.setMinWidth(198);
+        nameCol.setMinWidth(300);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Ort,String> anschriftCol = new TableColumn<Ort,String>("Anschrift");
@@ -117,8 +117,8 @@ public class OrtsListenAnsicht {
 
         borderPane.setBottom(hbox);
 
-        primaryStage.setMinWidth(800);
-        primaryStage.setMinHeight(500);
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(400);
         
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
@@ -165,7 +165,8 @@ public class OrtsListenAnsicht {
 		}
 		
 		String url = geocoordinate != null ? 
-				"http://staticmap.openstreetmap.de/staticmap.php?center=" + geocoordinate + "&markers=" + geocoordinate	+ ",red-pushpin&zoom=16&size=300x" + height + "&maptype=mapnik" :  
+				"http://staticmap.openstreetmap.de/staticmap.php?center=" + geocoordinate + "&markers=" + 
+				geocoordinate	+ ",red-pushpin&zoom=16&size=300x" + height + "&maptype=mapnik" :  
 				"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x" + height	+ "&maptype=mapnik";
 		
 		return url;
