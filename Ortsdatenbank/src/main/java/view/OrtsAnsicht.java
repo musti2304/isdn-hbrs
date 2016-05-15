@@ -66,7 +66,7 @@ public class OrtsAnsicht {
             public void handle(ActionEvent e) {
                 ort.setName(nameTextField.getText());
                 ort.setAnschrift(anschriftTextField.getText());
-                ortsListe.add(ort);
+                ortsListe.addOrt(ort);
                 ortsListenAnsicht.updateDisplayedList();
                 stage.close();
             }

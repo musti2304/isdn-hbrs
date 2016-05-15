@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,18 +37,23 @@ import javafx.stage.Stage;
 import model.Ort;
 import model.OrtsListe;
 
-public class OrtsListenAnsicht {
+public class OrtsListenAnsicht implements Observer {
 
     private OrtsListe ortsListe;
-
     private ObservableList<Ort> tableViewItems = FXCollections.observableArrayList();
-    
     private static final int SIZE_OF_OTHER_CONTROLS = 52;
 
     public OrtsListenAnsicht(OrtsListe ortsListe) {
         this.ortsListe = ortsListe;
+        ortsListe.addObserver(this);
     }
 
+	@Override
+	public void update(Observable o, Object arg) {
+		updateDisplayedList();
+		
+	}
+    
     public void show(final Stage primaryStage) {
         primaryStage.setTitle("My POIs");
 
@@ -140,7 +147,7 @@ public class OrtsListenAnsicht {
 
     public void updateDisplayedList() {
         tableViewItems.clear();
-        tableViewItems.addAll(ortsListe);
+        tableViewItems.addAll(ortsListe.getListeVonOrten());
     }
     
 	public static String getMapURL(String anschrift, int height) {
@@ -171,4 +178,5 @@ public class OrtsListenAnsicht {
 		
 		return url;
 	}
+
 }
