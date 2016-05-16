@@ -69,11 +69,13 @@ public class OrtsListenAnsicht implements Observer {
         anschriftCol.setMinWidth(300);
         anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
         
+        // Die TableView: Komponente, die zwei TableColumns enthält
         table.getColumns().addAll(nameCol, anschriftCol);
         
         table.setItems(tableViewItems);
         borderPane.setCenter(table);
         
+        // Eine ImageView mit einem Image als Leaf
         Image image = new Image("http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",true);
                 
         ImageView imageview = new ImageView();
@@ -97,6 +99,7 @@ public class OrtsListenAnsicht implements Observer {
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
 
+        // Die HBox: Komponente, die zwei Buttons als Leafs enthält.
         hbox.getChildren().addAll(btnAdd, btnSave);
 
         final OrtsListenAnsicht ortsListenAnsicht = this;
@@ -124,7 +127,7 @@ public class OrtsListenAnsicht implements Observer {
 
         borderPane.setBottom(hbox);
 
-        primaryStage.setMinWidth(1000);
+        primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(400);
         
         Scene scene = new Scene(borderPane);

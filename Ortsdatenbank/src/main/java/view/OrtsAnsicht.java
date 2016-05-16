@@ -48,6 +48,7 @@ public class OrtsAnsicht {
         vBox.setPadding(new Insets(15, 12, 15, 12));
         vBox.setSpacing(10);
         
+        // Die VBox: Komponente, die zwei Labels und zwei TextFields als Leafs enth‰lt.
         vBox.getChildren().addAll(nameLabel, nameTextField, anschriftLabel, anschriftTextField);
         
         border.setCenter(vBox);
@@ -60,6 +61,7 @@ public class OrtsAnsicht {
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: linear-gradient(#CBED63, #72C227);");
 
+        // Die HBox: Komponente, die zwei Buttons als Leafs enth‰lt.
         hbox.getChildren().addAll(btnAdd, btnCancel);
 
         btnAdd.setOnAction(new EventHandler<ActionEvent>() {
@@ -81,6 +83,7 @@ public class OrtsAnsicht {
 
         border.setBottom(hbox);
 
+        // Die Stage: Erh‰lt eine Scene, diese eine BorderPane. Auﬂerdem ein Icon
         Scene scene = new Scene(border, 300, 195);
         stage.setScene(scene);
         stage.getIcons().add(new Image(OrtsAnsicht.class.getResourceAsStream("icon.png")));
