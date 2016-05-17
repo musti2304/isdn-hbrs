@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,18 +37,23 @@ import javafx.stage.Stage;
 import model.Ort;
 import model.OrtsListe;
 
-public class OrtsListenAnsicht {
+public class OrtsListenAnsicht implements Observer {
 
     private OrtsListe ortsListe;
-
     private ObservableList<Ort> tableViewItems = FXCollections.observableArrayList();
-    
     private static final int SIZE_OF_OTHER_CONTROLS = 52;
 
     public OrtsListenAnsicht(OrtsListe ortsListe) {
         this.ortsListe = ortsListe;
+        ortsListe.addObserver(this);
     }
 
+	@Override
+	public void update(Observable o, Object arg) {
+		updateDisplayedList();
+		
+	}
+    
     public void show(final Stage primaryStage) {
         primaryStage.setTitle("My POIs");
 
@@ -62,11 +69,13 @@ public class OrtsListenAnsicht {
         anschriftCol.setMinWidth(300);
         anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
         
+        // Die TableView: Komponente, die zwei TableColumns enthält
         table.getColumns().addAll(nameCol, anschriftCol);
         
         table.setItems(tableViewItems);
         borderPane.setCenter(table);
         
+        // Eine ImageView mit einem Image als Leaf
         Image image = new Image("http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",true);
                 
         ImageView imageview = new ImageView();
@@ -90,6 +99,7 @@ public class OrtsListenAnsicht {
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
 
+        // Die HBox: Komponente, die zwei Buttons als Leafs enthält.
         hbox.getChildren().addAll(btnAdd, btnSave);
 
         final OrtsListenAnsicht ortsListenAnsicht = this;
@@ -117,7 +127,7 @@ public class OrtsListenAnsicht {
 
         borderPane.setBottom(hbox);
 
-        primaryStage.setMinWidth(1000);
+        primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(400);
         
         Scene scene = new Scene(borderPane);
@@ -140,7 +150,7 @@ public class OrtsListenAnsicht {
 
     public void updateDisplayedList() {
         tableViewItems.clear();
-        tableViewItems.addAll(ortsListe);
+        tableViewItems.addAll(ortsListe.getListeVonOrten());
     }
     
 	public static String getMapURL(String anschrift, int height) {
@@ -171,4 +181,5 @@ public class OrtsListenAnsicht {
 		
 		return url;
 	}
+
 }

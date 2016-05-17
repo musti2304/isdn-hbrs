@@ -32,13 +32,14 @@ public abstract class AbstractOperationTest {
     	verify(stack).push(result);
 	}
     
-    
+/*    
     @Test(expected = IllegalStateException.class)
     public void emptyStackThrowException1() {
         when(stack.size()).thenReturn(1);
         createOperationObject().execute(stack);
     }
-
+*/
+    
     @Test(expected = IllegalStateException.class)
     public void emptyStackThrowException2() {
         when(stack.size()).thenReturn(0);
