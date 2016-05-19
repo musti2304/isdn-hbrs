@@ -125,6 +125,12 @@ public class OrtsListenAnsicht implements Observer {
                 }
             }
         });
+        
+        btnDialog.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				(new OrtMitBesuchsdatumAnsicht(new Ort(), ortsListe, ortsListenAnsicht)).show(primaryStage);
+			}
+		});
 
         borderPane.setBottom(hbox);
 
