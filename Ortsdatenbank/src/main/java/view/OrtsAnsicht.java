@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 import model.Ort;
 import model.OrtsListe;
 
-public class OrtsAnsicht {
+public class OrtsAnsicht extends AbstractOrtsAnsicht {
+/**
+ *  TODO
+ *  gemeinsames verhalten in oberklasse auskapseln
+ */
 
     private Ort ort;
     private OrtsListe ortsListe;
@@ -27,6 +31,10 @@ public class OrtsAnsicht {
         this.ortsListe = ortsListe;
         this.ortsListenAnsicht = ortsListenAnsicht;
     }
+    
+//	public void initEingabeFelder() {
+//		
+//	}
 
     public void show(Stage owner) {
         final Stage stage = new Stage();
@@ -69,7 +77,7 @@ public class OrtsAnsicht {
                 ort.setName(nameTextField.getText());
                 ort.setAnschrift(anschriftTextField.getText());
                 ortsListe.addOrt(ort);
-                ortsListenAnsicht.updateDisplayedList();
+                ortsListenAnsicht.update(ortsListe, this);
                 stage.close();
             }
         });

@@ -34,13 +34,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.AbstractOrt;
 import model.Ort;
+import model.OrtMitBesuchsdatum;
 import model.OrtsListe;
 
 public class OrtsListenAnsicht implements Observer {
 
     private OrtsListe ortsListe;
-    private ObservableList<Ort> tableViewItems = FXCollections.observableArrayList();
+    private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
     private static final int SIZE_OF_OTHER_CONTROLS = 52;
 
     public OrtsListenAnsicht(OrtsListe ortsListe) {
@@ -59,13 +61,13 @@ public class OrtsListenAnsicht implements Observer {
 
         BorderPane borderPane = new BorderPane();
         
-        TableView<Ort> table = new TableView<>();
+        TableView<AbstractOrt> table = new TableView<>();
 
-        TableColumn<Ort,String> nameCol = new TableColumn<Ort, String>("Name");
+        TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
         nameCol.setMinWidth(300);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<Ort,String> anschriftCol = new TableColumn<Ort,String>("Anschrift");
+        TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
         anschriftCol.setMinWidth(300);
         anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
         
@@ -93,7 +95,7 @@ public class OrtsListenAnsicht implements Observer {
 
         Button btnAdd = new Button("Ort hinzufügen");
         Button btnSave = new Button("Speichern");
-        Button btnDialog = new Button("Dialog anzeigen");
+        Button btnAddDate = new Button("Ort mit Datum hinzufügen");
 
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(15, 12, 15, 12));
@@ -101,7 +103,7 @@ public class OrtsListenAnsicht implements Observer {
         hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
 
         // Die HBox: Komponente, die zwei Buttons als Leafs enthält.
-        hbox.getChildren().addAll(btnAdd, btnSave, btnDialog);
+        hbox.getChildren().addAll(btnAdd, btnSave, btnAddDate);
 
         final OrtsListenAnsicht ortsListenAnsicht = this;
 
@@ -126,9 +128,9 @@ public class OrtsListenAnsicht implements Observer {
             }
         });
         
-        btnDialog.setOnAction(new EventHandler<ActionEvent>() {
+        btnAddDate.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				(new OrtMitBesuchsdatumAnsicht(new Ort(), ortsListe, ortsListenAnsicht)).show(primaryStage);
+				(new OrtMitBesuchsdatumAnsicht(new OrtMitBesuchsdatum(), ortsListe, ortsListenAnsicht)).show(primaryStage);
 			}
 		});
 
