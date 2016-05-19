@@ -93,6 +93,7 @@ public class OrtsListenAnsicht implements Observer {
 
         Button btnAdd = new Button("Ort hinzufügen");
         Button btnSave = new Button("Speichern");
+        Button btnDialog = new Button("Dialog anzeigen");
 
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(15, 12, 15, 12));
@@ -100,7 +101,7 @@ public class OrtsListenAnsicht implements Observer {
         hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
 
         // Die HBox: Komponente, die zwei Buttons als Leafs enthält.
-        hbox.getChildren().addAll(btnAdd, btnSave);
+        hbox.getChildren().addAll(btnAdd, btnSave, btnDialog);
 
         final OrtsListenAnsicht ortsListenAnsicht = this;
 
