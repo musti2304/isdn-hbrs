@@ -2,38 +2,19 @@ package model;
 
 import java.io.Serializable;
 
-public class Ort implements Serializable {
+public class Ort extends AbstractOrt implements Serializable {
+	
+	private static final long serialVersionUID = 7367028818548018245L;
 
-    private static final long serialVersionUID = 7367028818548018245L;
+	public Ort() {}
 
-    private String name;
-    private String anschrift;
-    
-    public Ort ()  {}
-
-    public Ort(String name, String anschrift) {
-        this.name = name;
-        this.anschrift = anschrift;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAnschrift() {
-		return anschrift;
-	}
-
-	public void setAnschrift(String anschrift) {
-		this.anschrift = anschrift;
+	public Ort(String name, String anschrift) {
+		setName(name);
+		setAnschrift(anschrift);
 	}
 	
 	@Override
     public String toString() {
-        return name + ", " + anschrift;
+        return getName() + ", " + getAnschrift();
     }
 }

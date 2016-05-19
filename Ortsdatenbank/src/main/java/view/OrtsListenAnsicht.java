@@ -127,7 +127,7 @@ public class OrtsListenAnsicht implements Observer {
 
         borderPane.setBottom(hbox);
 
-        primaryStage.setMinWidth(600);
+        primaryStage.setMinWidth(920);
         primaryStage.setMinHeight(400);
         
         Scene scene = new Scene(borderPane);
