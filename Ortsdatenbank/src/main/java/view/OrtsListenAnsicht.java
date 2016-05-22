@@ -64,15 +64,19 @@ public class OrtsListenAnsicht implements Observer {
         TableView<AbstractOrt> table = new TableView<>();
 
         TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
-        nameCol.setMinWidth(300);
+        nameCol.setMinWidth(200);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
-        anschriftCol.setMinWidth(300);
+        anschriftCol.setMinWidth(200);
         anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
         
+        TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
+        dateCol.setMinWidth(150);
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        
         // Die TableView: Komponente, die zwei TableColumns enthält
-        table.getColumns().addAll(nameCol, anschriftCol);
+        table.getColumns().addAll(nameCol, anschriftCol, dateCol);
         
         table.setItems(tableViewItems);
         borderPane.setCenter(table);
