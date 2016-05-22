@@ -32,10 +32,6 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
         this.ortsListenAnsicht = ortsListenAnsicht;
     }
     
-//	public void initEingabeFelder() {
-//		
-//	}
-
     public void show(Stage owner) {
         final Stage stage = new Stage();
 

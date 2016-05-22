@@ -73,7 +73,7 @@ public class OrtsListenAnsicht implements Observer {
         
         TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
         dateCol.setMinWidth(150);
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("datumDesBesuchs"));
         
         // Die TableView: Komponente, die zwei TableColumns enthält
         table.getColumns().addAll(nameCol, anschriftCol, dateCol);
