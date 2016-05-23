@@ -13,46 +13,60 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.AbstractOrt;
 import model.Ort;
 import model.OrtsListe;
 
 public abstract class AbstractOrtsAnsicht {
     
-//	// References 
-//	private Ort ort;
-//    private OrtsListe ortsListe;
-//    private OrtsListenAnsicht ortsListenAnsicht;
+	private AbstractOrt abstractOrt;
+    private OrtsListe ortsListe;
+    private OrtsListenAnsicht ortsListenAnsicht;
 	
-    
-	public void show(Stage owner) {
-		final Stage stage = new Stage();
+    public abstract void initEingabeFelder();
 
+    final Stage stage = new Stage();
+
+    final Label nameLabel = new Label("Name");
+    final TextField nameTextField = new TextField();
+    
+    final Label anschriftLabel = new Label("Anschrift");
+    final TextField anschriftTextField = new TextField();
+	
+    VBox vBox = new VBox();
+
+    BorderPane border = new BorderPane();
+
+    Button btnAdd = new Button("Hinzufügen");
+    Button btnCancel = new Button("Abbrechen");
+
+    HBox hbox = new HBox();
+
+    Scene scene = new Scene(border, 500, 300);
+
+    public void show(Stage owner) {
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(owner);
+		stage.setTitle("Orts-Editor");
 
-//		stage.setTitle("Ort mit Besuchsdatum - Editor");
-
-        VBox vBox = new VBox();
         vBox.setPadding(new Insets(15, 12, 15, 12));
         vBox.setSpacing(10);
-
-		BorderPane border = new BorderPane();
-		
+        vBox.getChildren().addAll(nameLabel, nameTextField, anschriftLabel, anschriftTextField);
+        
 		border.setCenter(vBox);
 		
-        HBox hbox = new HBox();
         hbox.setPadding(new Insets(15, 12, 15, 12));
         hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: linear-gradient(#CBED63, #72C227);");
+        hbox.setStyle("-fx-background-color: linear-gradient(#CBED63, #72C227);");        
+        hbox.getChildren().addAll(btnAdd, btnCancel);
         
         border.setBottom(hbox);
+        
+        initEingabeFelder();
 
-        // Die Stage: Erhält eine Scene, diese eine BorderPane. Außerdem ein Icon
-        Scene scene = new Scene(border, 300, 195);
         stage.setScene(scene);
         stage.getIcons().add(new Image(OrtMitBesuchsdatumAnsicht.class.getResourceAsStream("icon.png")));
         stage.show();
 		
 	}
-    
 }

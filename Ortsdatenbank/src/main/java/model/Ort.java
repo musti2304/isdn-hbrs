@@ -9,8 +9,7 @@ public class Ort extends AbstractOrt implements Serializable {
 	public Ort() {}
 
 	public Ort(String name, String anschrift) {
-		setName(name);
-		setAnschrift(anschrift);
+		super(name, anschrift);
 	}
 	
 	@Override

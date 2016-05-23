@@ -7,11 +7,12 @@ public class OrtMitBesuchsdatum extends AbstractOrt implements Serializable {
 	
 	private static final long serialVersionUID = 7367028818548018245L;
 	
-	Date datumDesBesuchs = new Date();
+	private Date datumDesBesuchs = new Date();
 	
 	public OrtMitBesuchsdatum() {}
 	
-	public OrtMitBesuchsdatum(Date datum) {
+	public OrtMitBesuchsdatum(String name, String anschrift, Date datum) {
+		super(name, anschrift);
 		this.datumDesBesuchs = datum;
 	}
 
@@ -25,7 +26,7 @@ public class OrtMitBesuchsdatum extends AbstractOrt implements Serializable {
 
 	@Override
     public String toString() {
-        return getName() + ", " + getAnschrift();
+        return getName() + ", " + getAnschrift() + ", zuletzt besucht am " + getDatumDesBesuchs();
     }
 
 }

@@ -13,66 +13,30 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.AbstractOrt;
 import model.Ort;
 import model.OrtsListe;
 
 public class OrtsAnsicht extends AbstractOrtsAnsicht {
-/**
- *  TODO
- *  gemeinsames verhalten in oberklasse auskapseln
- */
 
-    private Ort ort;
+    private AbstractOrt abstractOrt;
     private OrtsListe ortsListe;
     private OrtsListenAnsicht ortsListenAnsicht;
 
-    public OrtsAnsicht(Ort ort, OrtsListe ortsListe, OrtsListenAnsicht ortsListenAnsicht) {
-        this.ort = ort;
+    public OrtsAnsicht(AbstractOrt abstractOrt, OrtsListe ortsListe, OrtsListenAnsicht ortsListenAnsicht) {
+        this.abstractOrt = abstractOrt;
         this.ortsListe = ortsListe;
         this.ortsListenAnsicht = ortsListenAnsicht;
     }
-    
-    public void show(Stage owner) {
-        final Stage stage = new Stage();
 
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(owner);
-
-        stage.setTitle("Ort von Interesse - Editor");
-
-        BorderPane border = new BorderPane();
-
-        final Label nameLabel = new Label("Name");
-        final TextField nameTextField = new TextField();
-        
-        final Label anschriftLabel = new Label("Anschrift");
-        final TextField anschriftTextField = new TextField();
-        
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(15, 12, 15, 12));
-        vBox.setSpacing(10);
-        
-        // Die VBox: Komponente, die zwei Labels und zwei TextFields als Leafs enthält.
-        vBox.getChildren().addAll(nameLabel, nameTextField, anschriftLabel, anschriftTextField);
-        
-        border.setCenter(vBox);
-
-        Button btnAdd = new Button("Hinzufügen");
-        Button btnCancel = new Button("Abbrechen");
-
-        HBox hbox = new HBox();
-        hbox.setPadding(new Insets(15, 12, 15, 12));
-        hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: linear-gradient(#CBED63, #72C227);");
-
-        // Die HBox: Komponente, die zwei Buttons als Leafs enthält.
-        hbox.getChildren().addAll(btnAdd, btnCancel);
+	@Override
+	public void initEingabeFelder() {
 
         btnAdd.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                ort.setName(nameTextField.getText());
-                ort.setAnschrift(anschriftTextField.getText());
-                ortsListe.addOrt(ort);
+                abstractOrt.setName(nameTextField.getText());
+                abstractOrt.setAnschrift(anschriftTextField.getText());
+                ortsListe.addOrt(abstractOrt);
                 ortsListenAnsicht.update(ortsListe, this);
                 stage.close();
             }
@@ -80,17 +44,9 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
 
         btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                ort = null;
+                abstractOrt = null;
                 stage.close();
             }
         });
-
-        border.setBottom(hbox);
-
-        // Die Stage: Erhält eine Scene, diese eine BorderPane. Außerdem ein Icon
-        Scene scene = new Scene(border, 300, 195);
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(OrtsAnsicht.class.getResourceAsStream("icon.png")));
-        stage.show();
-    }
+	}
 }
