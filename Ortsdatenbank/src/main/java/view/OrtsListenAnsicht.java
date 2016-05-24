@@ -64,15 +64,15 @@ public class OrtsListenAnsicht implements Observer {
         TableView<AbstractOrt> table = new TableView<>();
 
         TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
-        nameCol.setMinWidth(200);
+        nameCol.setMinWidth(300);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
-        anschriftCol.setMinWidth(200);
+        anschriftCol.setMinWidth(300);
         anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
         
         TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
-        dateCol.setMinWidth(150);
+        dateCol.setMinWidth(300);
         dateCol.setCellValueFactory(new PropertyValueFactory<>("datumDesBesuchs"));
         
         // Die TableView: Komponente, die zwei TableColumns enthält
@@ -140,7 +140,7 @@ public class OrtsListenAnsicht implements Observer {
 
         borderPane.setBottom(hbox);
 
-        primaryStage.setMinWidth(920);
+        primaryStage.setMinWidth(1500);
         primaryStage.setMinHeight(400);
         
         Scene scene = new Scene(borderPane);
