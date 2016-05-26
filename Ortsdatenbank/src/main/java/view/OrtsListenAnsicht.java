@@ -26,8 +26,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,14 +38,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.AbstractOrt;
+import model.OeffentlicherModusStrategy;
 import model.Ort;
 import model.OrtMitBesuchsdatum;
 import model.OrtsListe;
+import model.PrivatModusStrategy;
+import model.Strategy;
 
 public class OrtsListenAnsicht implements Observer {
 
-    private OrtsListe ortsListe;
     private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
+    private OrtsListe ortsListe;
     private static final int SIZE_OF_OTHER_CONTROLS = 52;
 
     public OrtsListenAnsicht(OrtsListe ortsListe) {
@@ -193,6 +199,50 @@ public class OrtsListenAnsicht implements Observer {
 				"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x" + height	+ "&maptype=mapnik";
 		
 		return url;
-	}
+	
+	final ToggleGroup group = new ToggleGroup();
+	final Strategy strategie;
+	OrtsListe ortsListe;
+	final RadioButton oeffentlicherModusRB = new RadioButton();
+	oeffentlicherModusRB.setToggleGroup(group);
+	oeffentlicherModusRB.setSelected(true);
+	oeffentlicherModusRB.setText("Öffentlicher Modus");
 
+	final RadioButton privatModusRB = new RadioButton();
+	privatModusRB.setToggleGroup(group);
+	privatModusRB.setText("Privater Modus");
+
+	Button ausgabeButton = new Button("Orte ausgeben");
+
+	HBox strategyHBox = new HBox();
+	strategyHBox.setPadding(new Insets(15, 12, 15, 12));
+	strategyHBox.setSpacing(10);
+	strategyHBox.setStyle("-fx-background-color: linear-gradient(#D7DF01, #F4FA58);");
+	strategyHBox.getChildren().addAll(oeffentlicherModusRB, privatModusRB, ausgabeButton);
+
+	this.strategie = new OeffentlicherModusStrategy();
+
+	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+	    public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) {
+	        if (group.getSelectedToggle() != null) {
+	           if (group.getSelectedToggle().equals(oeffentlicherModusRB))
+	           {
+	               strategie = new OeffentlicherModusStrategy();
+	               System.out.println ("Öffentlicher Modus aktiviert");
+	           }
+	           else
+	           {
+	               strategie = new PrivatModusStrategy();
+	               System.out.println ("Privater Modus aktiviert");
+	           }
+	       }
+	   }
+	});
+
+	ausgabeButton.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {
+	        strategie.ausgabeDerOrte(ortsListe.getListeVonOrten());
+	    }
+	});
+	}
 }
