@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Ort extends AbstractOrt implements Serializable {
+public class Ort extends AbstractOrt {
 	
 	private static final long serialVersionUID = 7367028818548018245L;
 

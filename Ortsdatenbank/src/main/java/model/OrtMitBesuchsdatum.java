@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class OrtMitBesuchsdatum extends AbstractOrt implements Serializable {
+public class OrtMitBesuchsdatum extends AbstractOrt  {
 	
 	private static final long serialVersionUID = 7367028818548018245L;
 	
