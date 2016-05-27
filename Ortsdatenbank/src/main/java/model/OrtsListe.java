@@ -30,6 +30,5 @@ public class OrtsListe extends Observable implements Serializable {
     	notifyObservers(listeVonOrten);
     	return listeVonOrten.remove(abstractOrt);
     }
-
 	
 }

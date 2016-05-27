@@ -106,14 +106,16 @@ public class OrtsListenAnsicht implements Observer {
         Button btnAdd = new Button("Ort hinzufügen");
         Button btnSave = new Button("Speichern");
         Button btnAddDate = new Button("Ort mit Datum hinzufügen");
-
+        Button btnAddpriv = new Button("Privater Modus");
+        Button btnAddOeff = new Button("Oeffentlicher Modus");
+        
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(15, 12, 15, 12));
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
 
         // Die HBox: Komponente, die zwei Buttons als Leafs enthält.
-        hbox.getChildren().addAll(btnAdd, btnSave, btnAddDate);
+        hbox.getChildren().addAll(btnAdd, btnSave, btnAddDate, btnAddpriv, btnAddOeff);
 
         final OrtsListenAnsicht ortsListenAnsicht = this;
 
@@ -200,16 +202,16 @@ public class OrtsListenAnsicht implements Observer {
 		
 		return url;
 	
-	final ToggleGroup group = new ToggleGroup();
+	//final ToggleGroup group = new ToggleGroup();
 	final Strategy strategie;
 	OrtsListe ortsListe;
 	final RadioButton oeffentlicherModusRB = new RadioButton();
-	oeffentlicherModusRB.setToggleGroup(group);
+	//oeffentlicherModusRB.setToggleGroup(group);
 	oeffentlicherModusRB.setSelected(true);
 	oeffentlicherModusRB.setText("Öffentlicher Modus");
 
 	final RadioButton privatModusRB = new RadioButton();
-	privatModusRB.setToggleGroup(group);
+	//privatModusRB.setToggleGroup(group);
 	privatModusRB.setText("Privater Modus");
 
 	Button ausgabeButton = new Button("Orte ausgeben");
@@ -220,7 +222,7 @@ public class OrtsListenAnsicht implements Observer {
 	strategyHBox.setStyle("-fx-background-color: linear-gradient(#D7DF01, #F4FA58);");
 	strategyHBox.getChildren().addAll(oeffentlicherModusRB, privatModusRB, ausgabeButton);
 
-	this.strategie = new OeffentlicherModusStrategy();
+	//this.strategie = new OeffentlicherModusStrategy();
 
 	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 	    public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) {
@@ -241,7 +243,7 @@ public class OrtsListenAnsicht implements Observer {
 
 	ausgabeButton.setOnAction(new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent e) {
-	        strategie.ausgabeDerOrte(ortsListe.getListeVonOrten());
+	        strategie.ausgabeDerOrte(ortsListe.getAll());
 	    }
 	});
 	}
