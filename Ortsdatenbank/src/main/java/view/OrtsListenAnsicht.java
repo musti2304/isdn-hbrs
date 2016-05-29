@@ -109,9 +109,27 @@ public class OrtsListenAnsicht implements Observer {
 		Button btnAdd = new Button("Ort hinzufügen");
 		Button btnSave = new Button("Speichern");
 		Button btnAddDate = new Button("Ort mit Datum hinzufügen");
-		Button btnShowPlaces = new Button("Orte ausgeben");
+		Button btnShowPlaces = new Button("Orte ausgeben");	
+		
+		
+		final ToggleGroup group = new ToggleGroup();
 
+		final RadioButton oeffentlicherModusRB = new RadioButton();
+		oeffentlicherModusRB.setToggleGroup(group);
+		oeffentlicherModusRB.setSelected(true);
+		oeffentlicherModusRB.setText("Öffentlicher Modus");
 
+		final RadioButton privatModusRB = new RadioButton();
+		privatModusRB.setToggleGroup(group);
+		privatModusRB.setText("Privater Modus");
+		
+		HBox strategyHBox = new HBox();
+		strategyHBox.setPadding(new Insets(15, 12, 15, 12));
+		strategyHBox.setSpacing(10);
+		strategyHBox.setStyle("-fx-background-color: linear-gradient(#ffff33, #808000);");
+		strategyHBox.getChildren().addAll(oeffentlicherModusRB, privatModusRB, btnShowPlaces);
+		borderPane.setTop(strategyHBox);
+		
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(15, 12, 15, 12));
 		hbox.setSpacing(10);
@@ -123,12 +141,14 @@ public class OrtsListenAnsicht implements Observer {
 		final OrtsListenAnsicht ortsListenAnsicht = this;
 
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent e) {
 				(new OrtsAnsicht(new Ort(), ortsListe, ortsListenAnsicht)).show(primaryStage);
 			}
 		});
 
 		btnSave.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent e) {
 				FileOutputStream fos;
 				ObjectOutputStream out;
@@ -144,15 +164,23 @@ public class OrtsListenAnsicht implements Observer {
 		});
 
 		btnAddDate.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent event) {
 				(new OrtMitBesuchsdatumAnsicht(new OrtMitBesuchsdatum(), ortsListe, ortsListenAnsicht))
 						.show(primaryStage);
 			}
 		});
 
+		btnShowPlaces.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("dasifnshb");				
+			}
+		});
+		
 		borderPane.setBottom(hbox);
 
-		primaryStage.setMinWidth(1500);
+		primaryStage.setMinWidth(1000);
 		primaryStage.setMinHeight(400);
 
 		Scene scene = new Scene(borderPane);
