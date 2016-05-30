@@ -6,8 +6,8 @@ public class PrivatModusStrategy implements Strategy {
 
 	@Override
 	public void ausgabeDerOrte(List<AbstractOrt> listeVonOrten) {
-		// TODO Auto-generated method stub
-		
+		// TODO Add correct behavior to show the private places
+		System.out.println("Ich bin privat");
 	}
 
 }

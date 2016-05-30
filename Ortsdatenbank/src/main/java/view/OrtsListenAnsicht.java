@@ -49,6 +49,7 @@ public class OrtsListenAnsicht implements Observer {
 
 	private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
 	private OrtsListe ortsListe;
+	private Strategy strategie;
 	private static final int SIZE_OF_OTHER_CONTROLS = 52;
 
 	public OrtsListenAnsicht(OrtsListe ortsListe) {
@@ -130,6 +131,8 @@ public class OrtsListenAnsicht implements Observer {
 		strategyHBox.getChildren().addAll(oeffentlicherModusRB, privatModusRB, btnShowPlaces);
 		borderPane.setTop(strategyHBox);
 		
+		this.strategie = new OeffentlicherModusStrategy();
+		
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(15, 12, 15, 12));
 		hbox.setSpacing(10);
@@ -173,9 +176,26 @@ public class OrtsListenAnsicht implements Observer {
 
 		btnShowPlaces.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event) {
-				System.out.println("dasifnshb");				
+			public void handle(ActionEvent event) {				
+				strategie.ausgabeDerOrte(ortsListe.getListeVonOrten());
 			}
+		});
+		
+		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+		    public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) {
+		        if (group.getSelectedToggle() != null) {
+		           if (group.getSelectedToggle().equals(oeffentlicherModusRB))
+		           {
+		               strategie = new OeffentlicherModusStrategy();
+		               System.out.println ("Öffentlicher Modus aktiviert");
+		           }
+		           else
+		           {
+		               strategie = new PrivatModusStrategy();
+		               System.out.println ("Privater Modus aktiviert");
+		           }
+		       }
+		   }
 		});
 		
 		borderPane.setBottom(hbox);
