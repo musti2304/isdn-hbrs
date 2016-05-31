@@ -15,6 +15,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.events.MouseEvent;
 import org.xml.sax.SAXException;
 
 import javafx.beans.value.ChangeListener;
@@ -44,6 +45,14 @@ import model.OrtMitBesuchsdatum;
 import model.OrtsListe;
 import model.PrivatModusStrategy;
 import model.Strategy;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
+import javafx.stage.Stage;
 
 public class OrtsListenAnsicht implements Observer {
 
@@ -111,6 +120,7 @@ public class OrtsListenAnsicht implements Observer {
 		Button btnSave = new Button("Speichern");
 		Button btnAddDate = new Button("Ort mit Datum hinzufügen");
 		Button btnShowPlaces = new Button("Orte ausgeben");	
+		Button btnDel = new Button("Ort löschen");
 		
 		
 		final ToggleGroup group = new ToggleGroup();
@@ -139,10 +149,29 @@ public class OrtsListenAnsicht implements Observer {
 		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
 
 		// Die HBox: Komponente, die zwei Buttons als Leafs enthält.
-		hbox.getChildren().addAll(btnAdd, btnSave, btnAddDate, btnShowPlaces);
+		hbox.getChildren().addAll(btnAdd,btnDel, btnSave, btnAddDate, btnShowPlaces);
 
 		final OrtsListenAnsicht ortsListenAnsicht = this;
-
+		
+		btnDel.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				AbstractOrt ort = table.getSelectionModel().getSelectedItem();
+				if(ort == null) 
+					return;
+				ortsListe.removeOrt(ort);
+				Image image = new Image("http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",true);
+				imageview.setImage(image);
+			}
+		});
+	/*	table.setOnMouseClicked(new EventHandler<MouseEvent>()) {
+			public void handle(MouseEvent mouseEvent) {
+				if(mouseEvent.getButton().equals(MouseButton.PRIMARY) {
+					if(mouseEvent.getClickCount() == 2) {
+						AbstractOrt ort = table.getSelectionModel().getSelectedItem();
+					}
+				}
+			}
+		});*/
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {

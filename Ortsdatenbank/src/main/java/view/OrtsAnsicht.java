@@ -48,5 +48,6 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
                 stage.close();
             }
         });
+        
 	}
 }
