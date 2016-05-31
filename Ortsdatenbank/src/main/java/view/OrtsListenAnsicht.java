@@ -15,7 +15,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.events.MouseEvent;
 import org.xml.sax.SAXException;
 
 import javafx.beans.value.ChangeListener;
@@ -30,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,7 +40,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.AbstractOrt;
 import model.OeffentlicherModusStrategy;
-import model.Ort;
+import model.*;
 import model.OrtMitBesuchsdatum;
 import model.OrtsListe;
 import model.PrivatModusStrategy;
@@ -53,6 +53,7 @@ import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
 public class OrtsListenAnsicht implements Observer {
 
@@ -163,15 +164,7 @@ public class OrtsListenAnsicht implements Observer {
 				imageview.setImage(image);
 			}
 		});
-	/*	table.setOnMouseClicked(new EventHandler<MouseEvent>()) {
-			public void handle(MouseEvent mouseEvent) {
-				if(mouseEvent.getButton().equals(MouseButton.PRIMARY) {
-					if(mouseEvent.getClickCount() == 2) {
-						AbstractOrt ort = table.getSelectionModel().getSelectedItem();
-					}
-				}
-			}
-		});*/
+
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -209,7 +202,21 @@ public class OrtsListenAnsicht implements Observer {
 				strategie.ausgabeDerOrte(ortsListe.getListeVonOrten());
 			}
 		});
-		
+		table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                    if(mouseEvent.getClickCount() == 2){
+                        AbstractOrt ort = table.getSelectionModel().getSelectedItem(); 
+                        	if(ort instanceof OrtMitBesuchsdatum) {
+                        		new OrtMitBesuchsdatumAnsicht(ort,ortsListe, ortsListenAnsicht).show(primaryStage);
+                        	}
+                        	else {
+                        		new OrtsAnsicht(ort,ortsListe, ortsListenAnsicht).show(primaryStage);
+                        	}
+                    }
+                }
+            }
+        });
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 		    public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) {
 		        if (group.getSelectedToggle() != null) {
