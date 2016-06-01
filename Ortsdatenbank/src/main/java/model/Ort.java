@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Ort extends AbstractOrt implements Serializable {
+public class Ort extends AbstractOrt {
 	
 	private static final long serialVersionUID = 7367028818548018245L;
 
@@ -14,6 +14,6 @@ public class Ort extends AbstractOrt implements Serializable {
 	
 	@Override
     public String toString() {
-        return getName() + ", " + getAnschrift();
+        return super.getName() + ", " + super.getAnschrift();
     }
 }

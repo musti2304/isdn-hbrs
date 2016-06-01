@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class OrtMitBesuchsdatum extends AbstractOrt implements Serializable {
+public class OrtMitBesuchsdatum extends AbstractOrt  {
 	
 	private static final long serialVersionUID = 7367028818548018245L;
 	
@@ -26,7 +26,7 @@ public class OrtMitBesuchsdatum extends AbstractOrt implements Serializable {
 
 	@Override
     public String toString() {
-        return getName() + ", " + getAnschrift() + ", zuletzt besucht am " + getDatumDesBesuchs();
+        return super.getName() + ", " + super.getAnschrift() + ", zuletzt besucht am " + getDatumDesBesuchs();
     }
 
 }
