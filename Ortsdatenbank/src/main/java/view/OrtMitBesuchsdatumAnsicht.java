@@ -63,8 +63,11 @@ public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
         });
         btnDel.setOnAction(new EventHandler<ActionEvent>() {
         		public void handle(ActionEvent e) {
-        			abstractOrt = null;
-        			stage.close();
+        			 abstractOrt.setName(nameTextField.getText());
+                     abstractOrt.setAnschrift(anschriftTextField.getText());
+                     ortsListe.removeOrt(abstractOrt);
+                    ortsListenAnsicht.update(ortsListe, this);
+                     stage.close();
         		}
 	});
 	}

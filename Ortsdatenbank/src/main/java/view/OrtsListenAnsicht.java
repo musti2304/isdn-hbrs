@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.lang.model.util.Elements;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -162,6 +163,7 @@ public class OrtsListenAnsicht implements Observer {
 				ortsListe.removeOrt(ort);
 				Image image = new Image("http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",true);
 				imageview.setImage(image);
+			
 			}
 		});
 
