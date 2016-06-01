@@ -14,10 +14,10 @@ public class OrtsListe extends Observable implements Serializable {
 
     public OrtsListe() { 	
     	listeVonOrten = new ArrayList<AbstractOrt>();
-    	listeVonOrten.add(new Ort("Campus St. Augustin Hochschule Bonn-Rhein-Sieg", "Grantham-Allee 20, 53757 Sankt Augustin\n"));
-        listeVonOrten.add(new Ort("Campus Rheinbach Hochschule Bonn-Rhein-Sieg", "von-Liebig-Straﬂe 20, 53359 Rheinbach\n"));
-        listeVonOrten.add(new Ort("Campus Hennef Hochschule Bonn-Rhein-Sieg", "Zum Steimelsberg 7, 53773 Hennef\n"));
-        listeVonOrten.add(new OrtMitBesuchsdatum("Test", "Teststraﬂe", new Date().from(Instant.now())));
+    	listeVonOrten.add(new Ort("Campus St. Augustin Hochschule Bonn-Rhein-Sieg", "Grantham-Allee 20, 53757 Sankt Augustin"));
+        listeVonOrten.add(new Ort("Campus Rheinbach Hochschule Bonn-Rhein-Sieg", "von-Liebig-Straﬂe 20, 53359 Rheinbach"));
+        listeVonOrten.add(new Ort("Campus Hennef Hochschule Bonn-Rhein-Sieg", "Zum Steimelsberg 7, 53773 Hennef"));
+        listeVonOrten.add(new OrtMitBesuchsdatum("CI Mobile Minds GmbH", "Marie-Curie-Straﬂe 10, 51103 Kˆln", new Date().from(Instant.now())));
     }
     
     public List<AbstractOrt> getListeVonOrten() {
