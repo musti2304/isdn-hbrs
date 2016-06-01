@@ -1,7 +1,7 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.OrtsListe;
-import view.OrtsListenAnsicht;
+import model.*;
+import view.*;
 
 public class Starter extends Application {
 

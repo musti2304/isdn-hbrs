@@ -77,19 +77,19 @@ public class OrtsListenAnsicht implements Observer {
 	public void show(final Stage primaryStage) {
 		primaryStage.setTitle("My POIs");
 
-		BorderPane borderPane = new BorderPane();
+		final BorderPane borderPane = new BorderPane();
 
-		TableView<AbstractOrt> table = new TableView<>();
+		final TableView<AbstractOrt> table = new TableView<>();
 
-		TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
+		final TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
 		nameCol.setMinWidth(300);
 		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-		TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
+		final TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
 		anschriftCol.setMinWidth(300);
 		anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
 
-		TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
+		final TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
 		dateCol.setMinWidth(300);
 		dateCol.setCellValueFactory(new PropertyValueFactory<>("datumDesBesuchs"));
 
@@ -115,15 +115,24 @@ public class OrtsListenAnsicht implements Observer {
 				imageview.setImage(newSelectionimage);
 			}
 		});
-
-		borderPane.setRight(imageview);
-
-		Button btnAdd = new Button("Ort hinzufügen");
-		Button btnSave = new Button("Speichern");
-		Button btnAddDate = new Button("Ort mit Datum hinzufügen");
-		Button btnShowPlaces = new Button("Orte ausgeben");	
-		Button btnDel = new Button("Ort löschen");
 		
+		borderPane.setRight(imageview);
+		
+
+		final Button btnAdd = new Button("Ort hinzufügen");
+		final Button btnSave = new Button("Speichern");
+		final Button btnAddDate = new Button("Ort mit Datum hinzufügen");
+		final Button btnShowPlaces = new Button("Orte ausgeben");	
+		final Button btnDel = new Button("Ort löschen");
+		
+		HBox hbox = new HBox();
+		hbox.setPadding(new Insets(15, 12, 15, 12));
+		hbox.setSpacing(10);
+		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
+
+		// Die HBox: Komponente, die zwei Buttons als Leafs enthält.
+		hbox.getChildren().addAll(btnAdd,btnDel, btnSave, btnAddDate, btnShowPlaces);
+		borderPane.setTop(hbox);
 		
 		final ToggleGroup group = new ToggleGroup();
 
@@ -138,31 +147,31 @@ public class OrtsListenAnsicht implements Observer {
 		
 		HBox strategyHBox = new HBox();
 		strategyHBox.setPadding(new Insets(15, 12, 15, 12));
-		strategyHBox.setSpacing(10);
+		strategyHBox.setSpacing(2);
 		strategyHBox.setStyle("-fx-background-color: linear-gradient(#ffff33, #808000);");
 		strategyHBox.getChildren().addAll(oeffentlicherModusRB, privatModusRB, btnShowPlaces);
-		borderPane.setTop(strategyHBox);
+		borderPane.setLeft(strategyHBox);
 		
 		this.strategie = new OeffentlicherModusStrategy();
 		
-		HBox hbox = new HBox();
-		hbox.setPadding(new Insets(15, 12, 15, 12));
-		hbox.setSpacing(10);
-		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
-
-		// Die HBox: Komponente, die zwei Buttons als Leafs enthält.
-		hbox.getChildren().addAll(btnAdd,btnDel, btnSave, btnAddDate, btnShowPlaces);
-
 		final OrtsListenAnsicht ortsListenAnsicht = this;
 		
 		btnDel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent e) {
+				
 				AbstractOrt ort = table.getSelectionModel().getSelectedItem();
 				if(ort == null) 
 					return;
 				ortsListe.removeOrt(ort);
 				Image image = new Image("http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",true);
 				imageview.setImage(image);
+				
+				ort.setName(nameCol.getText());
+                ort.setAnschrift(anschriftCol.getText());
+                ortsListe.removeOrt(ort);
+               ortsListenAnsicht.update(ortsListe, this);
+               
 			
 			}
 		});
@@ -236,8 +245,7 @@ public class OrtsListenAnsicht implements Observer {
 		   }
 		});
 		
-		borderPane.setBottom(hbox);
-
+		
 		primaryStage.setMinWidth(1000);
 		primaryStage.setMinHeight(400);
 
