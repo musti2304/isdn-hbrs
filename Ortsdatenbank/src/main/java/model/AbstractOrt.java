@@ -32,6 +32,7 @@ public abstract class AbstractOrt implements Serializable {
 		this.anschrift = anschrift;
 	}
 
+
 	@Override
 	public String toString() {
 		return name + ", " + anschrift;

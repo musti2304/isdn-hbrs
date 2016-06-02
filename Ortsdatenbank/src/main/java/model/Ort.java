@@ -16,4 +16,5 @@ public class Ort extends AbstractOrt {
     public String toString() {
         return getName() + ", " + getAnschrift();
     }
+
 }
