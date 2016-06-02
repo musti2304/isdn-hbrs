@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Ort extends AbstractOrt {
+public class Ort extends AbstractOrt implements Cloneable{
 	
 	private static final long serialVersionUID = 7367028818548018245L;
 
@@ -10,6 +10,9 @@ public class Ort extends AbstractOrt {
 
 	public Ort(String name, String anschrift) {
 		super(name, anschrift);
+	}
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 	@Override
