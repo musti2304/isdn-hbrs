@@ -42,7 +42,7 @@ public abstract class AbstractOrtsAnsicht {
 
     HBox hbox = new HBox();
 
-    Scene scene = new Scene(border, 500, 300);
+    Scene scene = new Scene(border, 600, 450);
 
     public void show(Stage owner) {
 		stage.initModality(Modality.WINDOW_MODAL);
