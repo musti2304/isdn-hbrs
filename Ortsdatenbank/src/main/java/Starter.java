@@ -12,7 +12,7 @@ public class Starter extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		OrtsListenAnsicht ortsListenAnsicht = new OrtsListenAnsicht(new OrtsListe());
+		OrtsListenAnsicht ortsListenAnsicht = new OrtsListenAnsicht(OrtsListe.getInstance());
 		ortsListenAnsicht.show(primaryStage);
 	}
 }
