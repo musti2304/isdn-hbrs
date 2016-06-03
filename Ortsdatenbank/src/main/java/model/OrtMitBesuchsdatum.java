@@ -26,7 +26,7 @@ public class OrtMitBesuchsdatum extends AbstractOrt  {
 
 	@Override
     public String toString() {
-        return getName() + ", " + getAnschrift() + ", zuletzt besucht am " + getDatumDesBesuchs();
+        return super.getName() + ", " + super.getAnschrift() + ", zuletzt besucht am " + getDatumDesBesuchs();
     }
 
 }

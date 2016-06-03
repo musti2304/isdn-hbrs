@@ -17,7 +17,7 @@ public class Ort extends AbstractOrt implements Cloneable{
 	
 	@Override
     public String toString() {
-        return getName() + ", " + getAnschrift();
+        return super.getName() + ", " + super.getAnschrift();
     }
 
 }
