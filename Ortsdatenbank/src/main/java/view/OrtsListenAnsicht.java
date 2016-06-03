@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -85,11 +86,11 @@ public class OrtsListenAnsicht implements Observer {
 	public void show(final Stage primaryStage) {
 		primaryStage.setTitle("My POIs");
 
-		nameCol.setMinWidth(300);
+		nameCol.setMinWidth(200);
 		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		anschriftCol.setMinWidth(300);
 		anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
-		dateCol.setMinWidth(300);
+		dateCol.setMinWidth(200);
 		dateCol.setCellValueFactory(new PropertyValueFactory<>("datumDesBesuchs"));
 
 		table.getColumns().addAll(nameCol, anschriftCol, dateCol);
@@ -164,14 +165,16 @@ public class OrtsListenAnsicht implements Observer {
 		});
 
 		btnSave.setOnAction(new EventHandler<ActionEvent>() {
+			List<AbstractOrt> listeVonOrten;
 			@Override
 			public void handle(ActionEvent e) {
 				FileOutputStream fos;
 				ObjectOutputStream out;
 				try {
-					fos = new FileOutputStream((new Date().getTime() + ".ser"));
+					fos = new FileOutputStream("myPlaces.txt");
 					out = new ObjectOutputStream(fos);
 					out.writeObject(ortsListe);
+					System.out.println("Data saved successfully");
 					out.close();
 				} catch (IOException ex) {
 					ex.printStackTrace();
