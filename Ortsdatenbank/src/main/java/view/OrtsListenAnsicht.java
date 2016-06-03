@@ -34,6 +34,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -50,29 +52,28 @@ public class OrtsListenAnsicht implements Observer {
 	private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
 	private OrtsListe ortsListe;
 	private Strategy strategie;
-	private static final int SIZE_OF_OTHER_CONTROLS = 52;
-	
-	// UI Elements
-	BorderPane borderPane = new BorderPane();
+	private static final int SIZE_OF_OTHER_CONTROLS = 105;
+
+	/////////////////////// UI Elements ////////////////////////
+ 	BorderPane borderPane = new BorderPane();
 	Scene scene = new Scene(borderPane);
 
-	TableView<AbstractOrt> table = new TableView<>();	
+	TableView<AbstractOrt> table = new TableView<>();
 	TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
 	TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
 	TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
 
 	Image image = new Image(
-			"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
-			true);
-	
+			"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik", true);
+
 	ImageView imageview = new ImageView();
 
 	Button btnAdd = new Button("Ort hinzufügen");
 	Button btnSave = new Button("Speichern");
 	Button btnAddDate = new Button("Ort mit Datum hinzufügen");
-	Button btnShowPlaces = new Button("Orte ausgeben");	
-	
-	
+	Button btnShowPlaces = new Button("Orte ausgeben");
+	final Button btnDel = new Button("Ort löschen");
+
 	final ToggleGroup group = new ToggleGroup();
 
 	final RadioButton oeffentlicherModusRB = new RadioButton();
@@ -80,27 +81,20 @@ public class OrtsListenAnsicht implements Observer {
 	HBox strategyHBox = new HBox();
 	HBox hbox = new HBox();
 	final OrtsListenAnsicht ortsListenAnsicht = this;
-	
-	
+
 	public void show(final Stage primaryStage) {
 		primaryStage.setTitle("My POIs");
 
-
-		nameCol.setMinWidth(200);
+		nameCol.setMinWidth(300);
 		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-		anschriftCol.setMinWidth(200);
+		anschriftCol.setMinWidth(300);
 		anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
-
-		dateCol.setMinWidth(200);
+		dateCol.setMinWidth(300);
 		dateCol.setCellValueFactory(new PropertyValueFactory<>("datumDesBesuchs"));
 
-		// Die TableView: Komponente, die zwei TableColumns enthält
 		table.getColumns().addAll(nameCol, anschriftCol, dateCol);
-
 		table.setItems(tableViewItems);
-		borderPane.setCenter(table);
-
+		
 		imageview.setImage(image);
 
 		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -114,32 +108,53 @@ public class OrtsListenAnsicht implements Observer {
 
 		borderPane.setRight(imageview);
 
+		hbox.setPadding(new Insets(15, 12, 15, 12));
+		hbox.setSpacing(10);
+		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
+		hbox.getChildren().addAll(btnAdd, btnDel, btnSave, btnAddDate, btnShowPlaces);
+
+		borderPane.setCenter(table);
+		borderPane.setBottom(hbox);
+		borderPane.setTop(strategyHBox);
+
 		oeffentlicherModusRB.setToggleGroup(group);
 		oeffentlicherModusRB.setSelected(true);
 		oeffentlicherModusRB.setText("Öffentlicher Modus");
 
 		privatModusRB.setToggleGroup(group);
 		privatModusRB.setText("Privater Modus");
-		
+
 		strategyHBox.setPadding(new Insets(15, 12, 15, 12));
-		strategyHBox.setSpacing(10);
+		strategyHBox.setSpacing(2);
 		strategyHBox.setStyle("-fx-background-color: linear-gradient(#ffff33, #808000);");
 		strategyHBox.getChildren().addAll(oeffentlicherModusRB, privatModusRB, btnShowPlaces);
-		borderPane.setTop(strategyHBox);
-		
+
 		this.strategie = new OeffentlicherModusStrategy();
-		
-		hbox.setPadding(new Insets(15, 12, 15, 12));
-		hbox.setSpacing(10);
-		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
 
-		// Die HBox: Komponente, die zwei Buttons als Leafs enthält.
-		hbox.getChildren().addAll(btnAdd, btnSave, btnAddDate, btnShowPlaces);
-
-		borderPane.setBottom(hbox);
-
-		primaryStage.setMinWidth(800);
+		primaryStage.setMinWidth(1200);
 		primaryStage.setMinHeight(500);
+
+		// Button Actions and Handlers
+		btnDel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+
+				AbstractOrt ort = table.getSelectionModel().getSelectedItem();
+				if (ort == null)
+					return;
+				ortsListe.removeOrt(ort);
+				Image image = new Image(
+						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
+						true);
+				imageview.setImage(image);
+
+				ort.setName(nameCol.getText());
+				ort.setAnschrift(anschriftCol.getText());
+				ortsListe.removeOrt(ort);
+				ortsListenAnsicht.update(ortsListe, this);
+
+			}
+		});
 
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -174,29 +189,40 @@ public class OrtsListenAnsicht implements Observer {
 
 		btnShowPlaces.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event) {				
+			public void handle(ActionEvent event) {
 				strategie.ausgabeDerOrte(ortsListe.getListeVonOrten());
 			}
 		});
-		
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-		    public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) {
-		        if (group.getSelectedToggle() != null) {
-		           if (group.getSelectedToggle().equals(oeffentlicherModusRB))
-		           {
-		               strategie = new OeffentlicherModusStrategy();
-		               System.out.println ("Öffentlicher Modus aktiviert");
-		           }
-		           else
-		           {
-		               strategie = new PrivatModusStrategy();
-		               System.out.println ("Privater Modus aktiviert");
-		           }
-		       }
-		   }
+
+		table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent mouseEvent) {
+				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+					if (mouseEvent.getClickCount() == 2) {
+						AbstractOrt ort = table.getSelectionModel().getSelectedItem();
+						if (ort instanceof OrtMitBesuchsdatum) {
+							new OrtMitBesuchsdatumAnsicht(ort, ortsListe, ortsListenAnsicht).show(primaryStage);
+						} else {
+							new OrtsAnsicht(ort, ortsListe, ortsListenAnsicht).show(primaryStage);
+						}
+					}
+				}
+			}
 		});
-		
-		
+
+		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+				if (group.getSelectedToggle() != null) {
+					if (group.getSelectedToggle().equals(oeffentlicherModusRB)) {
+						strategie = new OeffentlicherModusStrategy();
+						System.out.println("Öffentlicher Modus aktiviert");
+					} else {
+						strategie = new PrivatModusStrategy();
+						System.out.println("Privater Modus aktiviert");
+					}
+				}
+			}
+		});
+
 		primaryStage.setScene(scene);
 		primaryStage.getIcons().add(new Image(OrtsListenAnsicht.class.getResourceAsStream("icon.png")));
 		updateDisplayedList();
@@ -219,7 +245,7 @@ public class OrtsListenAnsicht implements Observer {
 		tableViewItems.clear();
 		tableViewItems.addAll(ortsListe.getListeVonOrten());
 	}
-	
+
 	public OrtsListenAnsicht(OrtsListe ortsListe) {
 		this.ortsListe = ortsListe;
 		ortsListe.addObserver(this);

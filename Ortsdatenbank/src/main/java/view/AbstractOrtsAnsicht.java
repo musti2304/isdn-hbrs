@@ -39,7 +39,8 @@ public abstract class AbstractOrtsAnsicht {
 
     Button btnAdd = new Button("Hinzufügen");
     Button btnCancel = new Button("Abbrechen");
-
+    Button btnDel = new Button("Löschen");
+    
     HBox hbox = new HBox();
 
     Scene scene = new Scene(border, 600, 450);
@@ -58,7 +59,7 @@ public abstract class AbstractOrtsAnsicht {
         hbox.setPadding(new Insets(15, 12, 15, 12));
         hbox.setSpacing(10);
         hbox.setStyle("-fx-background-color: linear-gradient(#CBED63, #72C227);");        
-        hbox.getChildren().addAll(btnAdd, btnCancel);
+        hbox.getChildren().addAll(btnAdd, btnCancel,btnDel);
         
         border.setBottom(hbox);
         

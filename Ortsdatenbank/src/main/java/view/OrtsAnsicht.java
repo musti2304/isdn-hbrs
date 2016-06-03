@@ -34,11 +34,11 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
 
         btnAdd.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                abstractOrt.setName(nameTextField.getText());
-                abstractOrt.setAnschrift(anschriftTextField.getText());
-                ortsListe.addOrt(abstractOrt);
-                ortsListenAnsicht.update(ortsListe, this);
-                stage.close();
+            	  abstractOrt.setName(nameTextField.getText());
+                  abstractOrt.setAnschrift(anschriftTextField.getText());
+                  ortsListe.addOrt(abstractOrt);
+                  ortsListenAnsicht.update(ortsListe, this);
+                  stage.close();
             }
         });
 
@@ -48,5 +48,16 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
                 stage.close();
             }
         });
+
+        btnDel.setOnAction(new EventHandler<ActionEvent>() {
+        	   public void handle(ActionEvent e) {
+             	  abstractOrt.setName(nameTextField.getText());
+                   abstractOrt.setAnschrift(anschriftTextField.getText());
+                   ortsListe.removeOrt(abstractOrt);
+                  ortsListenAnsicht.update(ortsListe, this);
+                   stage.close();
+             }
+         });
+
 	}
 }
