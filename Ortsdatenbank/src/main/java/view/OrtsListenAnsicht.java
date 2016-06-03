@@ -48,6 +48,7 @@ import model.OrtsListe;
 import model.PrivatModusStrategy;
 import model.Strategy;
 
+@SuppressWarnings("restriction")
 public class OrtsListenAnsicht implements Observer {
 
 	private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
@@ -56,7 +57,7 @@ public class OrtsListenAnsicht implements Observer {
 	private static final int SIZE_OF_OTHER_CONTROLS = 105;
 
 	/////////////////////// UI Elements ////////////////////////
- 	BorderPane borderPane = new BorderPane();
+	BorderPane borderPane = new BorderPane();
 	Scene scene = new Scene(borderPane);
 
 	TableView<AbstractOrt> table = new TableView<>();
@@ -95,7 +96,7 @@ public class OrtsListenAnsicht implements Observer {
 
 		table.getColumns().addAll(nameCol, anschriftCol, dateCol);
 		table.setItems(tableViewItems);
-		
+
 		imageview.setImage(image);
 
 		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -166,6 +167,7 @@ public class OrtsListenAnsicht implements Observer {
 
 		btnSave.setOnAction(new EventHandler<ActionEvent>() {
 			List<AbstractOrt> listeVonOrten;
+
 			@Override
 			public void handle(ActionEvent e) {
 				FileOutputStream fos;

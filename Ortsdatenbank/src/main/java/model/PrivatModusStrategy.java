@@ -11,7 +11,7 @@ public class PrivatModusStrategy implements Strategy {
 	public void ausgabeDerOrte(List<AbstractOrt> listeVonOrten) {
 
 		Date date = new Date().from(Instant.now());
-		
+
 		Calendar calender = Calendar.getInstance();
 
 		calender.setTime(date);
@@ -19,7 +19,7 @@ public class PrivatModusStrategy implements Strategy {
 		date = calender.getTime();
 
 		for (AbstractOrt abstractOrt : listeVonOrten) {
-			if (abstractOrt instanceof OrtMitBesuchsdatum ) {
+			if (abstractOrt instanceof OrtMitBesuchsdatum) {
 				OrtMitBesuchsdatum ortMitBesuchsdatum = (OrtMitBesuchsdatum) abstractOrt;
 				if (ortMitBesuchsdatum.getDatumDesBesuchs().after(date)) {
 					System.out.println(abstractOrt.toString());

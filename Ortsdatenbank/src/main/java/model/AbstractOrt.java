@@ -9,12 +9,13 @@ public abstract class AbstractOrt implements Serializable {
 	private String name;
 	private String anschrift;
 
-	public AbstractOrt() { }
+	public AbstractOrt() {
+	}
 
 	public AbstractOrt(String name, String anschrift) {
-        this.name = name;
-        this.anschrift = anschrift;
-    }
+		this.name = name;
+		this.anschrift = anschrift;
+	}
 
 	public String getName() {
 		return name;
@@ -31,7 +32,6 @@ public abstract class AbstractOrt implements Serializable {
 	public void setAnschrift(String anschrift) {
 		this.anschrift = anschrift;
 	}
-
 
 	@Override
 	public String toString() {
