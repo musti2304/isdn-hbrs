@@ -40,8 +40,6 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
 
 		btnDel.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				abstractOrt.setName(nameTextField.getText());
-				abstractOrt.setAnschrift(anschriftTextField.getText());
 				ortsListe.removeOrt(abstractOrt);
 				ortsListenAnsicht.update(ortsListe, this);
 				stage.close();

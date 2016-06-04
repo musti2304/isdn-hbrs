@@ -74,15 +74,15 @@ public class OrtsListenAnsicht implements Observer {
 	Button btnSave = new Button("Speichern");
 	Button btnAddDate = new Button("Ort mit Datum hinzufügen");
 	Button btnShowPlaces = new Button("Orte ausgeben");
-	final Button btnDel = new Button("Ort löschen");
+	Button btnDel = new Button("Ort löschen");
 
 	final ToggleGroup group = new ToggleGroup();
 
 	final RadioButton oeffentlicherModusRB = new RadioButton();
 	final RadioButton privatModusRB = new RadioButton();
-	HBox strategyHBox = new HBox();
-	HBox hbox = new HBox();
 	final OrtsListenAnsicht ortsListenAnsicht = this;
+	HBox hbox = new HBox();
+	HBox strategyHBox = new HBox();
 
 	public void show(final Stage primaryStage) {
 		primaryStage.setTitle("My POIs");
@@ -113,7 +113,7 @@ public class OrtsListenAnsicht implements Observer {
 		hbox.setPadding(new Insets(15, 12, 15, 12));
 		hbox.setSpacing(10);
 		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
-		hbox.getChildren().addAll(btnAdd, btnDel, btnSave, btnAddDate, btnShowPlaces);
+		hbox.getChildren().addAll(btnAdd, btnDel, btnSave, btnAddDate);
 
 		borderPane.setCenter(table);
 		borderPane.setBottom(hbox);
@@ -136,25 +136,22 @@ public class OrtsListenAnsicht implements Observer {
 		primaryStage.setMinWidth(1200);
 		primaryStage.setMinHeight(500);
 
-		// Button Actions and Handlers
+		///////////////// Button Actions and Handlers //////////////////
 		btnDel.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 
-				AbstractOrt ort = table.getSelectionModel().getSelectedItem();
-				if (ort == null)
+				AbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
+				if (abstractOrt == null) 
 					return;
-				ortsListe.removeOrt(ort);
+				ortsListe.removeOrt(abstractOrt);
 				Image image = new Image(
 						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
 						true);
 				imageview.setImage(image);
 
-				ort.setName(nameCol.getText());
-				ort.setAnschrift(anschriftCol.getText());
-				ortsListe.removeOrt(ort);
+				ortsListe.removeOrt(abstractOrt);
 				ortsListenAnsicht.update(ortsListe, this);
-
 			}
 		});
 
