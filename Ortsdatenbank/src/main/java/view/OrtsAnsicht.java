@@ -25,7 +25,9 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
 			public void handle(ActionEvent e) {
 				abstractOrt.setName(nameTextField.getText());
 				abstractOrt.setAnschrift(anschriftTextField.getText());
-				ortsListe.addOrt(abstractOrt);
+				if(!ortsListe.getListeVonOrten().contains(abstractOrt)) {
+					ortsListe.addOrt(abstractOrt);					
+				}
 				ortsListenAnsicht.update(ortsListe, this);
 				stage.close();
 			}

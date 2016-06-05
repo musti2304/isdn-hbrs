@@ -142,7 +142,7 @@ public class OrtsListenAnsicht implements Observer {
 			public void handle(ActionEvent e) {
 
 				AbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
-				if (abstractOrt == null) 
+				if (abstractOrt == null)
 					return;
 				ortsListe.removeOrt(abstractOrt);
 				Image image = new Image(
@@ -196,21 +196,23 @@ public class OrtsListenAnsicht implements Observer {
 			}
 		});
 
+		// Handler for the double mouse click
 		table.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
 					if (mouseEvent.getClickCount() == 2) {
-						AbstractOrt ort = table.getSelectionModel().getSelectedItem();
-						if (ort instanceof OrtMitBesuchsdatum) {
-							new OrtMitBesuchsdatumAnsicht(ort, ortsListe, ortsListenAnsicht).show(primaryStage);
+						AbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
+						if (abstractOrt instanceof OrtMitBesuchsdatum) {
+							new OrtMitBesuchsdatumAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
 						} else {
-							new OrtsAnsicht(ort, ortsListe, ortsListenAnsicht).show(primaryStage);
+							new OrtsAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
 						}
 					}
 				}
 			}
 		});
 
+		// Radio button handler
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
 				if (group.getSelectedToggle() != null) {

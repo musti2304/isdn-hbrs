@@ -40,7 +40,9 @@ public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
 				abstractOrt.setAnschrift(anschriftTextField.getText());
 				((OrtMitBesuchsdatum) abstractOrt).setDatumDesBesuchs(
 						Date.from(besuchsdatumDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				ortsListe.addOrt(abstractOrt);
+				if(!ortsListe.getListeVonOrten().contains(abstractOrt)) {
+					ortsListe.addOrt(abstractOrt);					
+				}
 				ortsListenAnsicht.update(ortsListe, this);
 				stage.close();
 			}
