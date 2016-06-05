@@ -1,9 +1,12 @@
-package model;
+package strategy;
 
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import model.AbstractOrt;
+import model.OrtMitBesuchsdatum;
 
 public class PrivatModusStrategy implements Strategy {
 

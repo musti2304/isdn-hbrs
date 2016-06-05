@@ -41,12 +41,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.AbstractOrt;
-import model.OeffentlicherModusStrategy;
 import model.Ort;
 import model.OrtMitBesuchsdatum;
 import model.OrtsListe;
-import model.PrivatModusStrategy;
-import model.Strategy;
+import strategy.OeffentlicherModusStrategy;
+import strategy.PrivatModusStrategy;
+import strategy.Strategy;
 
 @SuppressWarnings("restriction")
 public class OrtsListenAnsicht implements Observer {

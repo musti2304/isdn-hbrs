@@ -1,6 +1,8 @@
-package model;
+package strategy;
 
 import java.util.List;
+
+import model.AbstractOrt;
 
 public interface Strategy {
 

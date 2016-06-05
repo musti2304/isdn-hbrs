@@ -11,12 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.AbstractOrt;
-import model.OeffentlicherModusStrategy;
 import model.Ort;
 import model.OrtMitBesuchsdatum;
 import model.OrtsListe;
-import model.PrivatModusStrategy;
-import model.Strategy;
+import strategy.OeffentlicherModusStrategy;
+import strategy.PrivatModusStrategy;
+import strategy.Strategy;
 import view.OrtsListenAnsicht;
 
 public class TestStrategy {
