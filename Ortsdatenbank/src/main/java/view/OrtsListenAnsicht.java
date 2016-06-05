@@ -75,6 +75,7 @@ public class OrtsListenAnsicht implements Observer {
 	Button btnAddDate = new Button("Ort mit Datum hinzufügen");
 	Button btnShowPlaces = new Button("Orte ausgeben");
 	Button btnDel = new Button("Ort löschen");
+	Button btnUndo = new Button("Rückgängig");
 
 	final ToggleGroup group = new ToggleGroup();
 
@@ -113,7 +114,7 @@ public class OrtsListenAnsicht implements Observer {
 		hbox.setPadding(new Insets(15, 12, 15, 12));
 		hbox.setSpacing(10);
 		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
-		hbox.getChildren().addAll(btnAdd, btnDel, btnSave, btnAddDate);
+		hbox.getChildren().addAll(btnAdd, btnAddDate, btnSave, btnDel, btnUndo);
 
 		borderPane.setCenter(table);
 		borderPane.setBottom(hbox);
@@ -136,29 +137,18 @@ public class OrtsListenAnsicht implements Observer {
 		primaryStage.setMinWidth(1200);
 		primaryStage.setMinHeight(500);
 
-		///////////////// Button Actions and Handlers //////////////////
-		btnDel.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-
-				AbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
-				if (abstractOrt == null)
-					return;
-				ortsListe.removeOrt(abstractOrt);
-				Image image = new Image(
-						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
-						true);
-				imageview.setImage(image);
-
-				ortsListe.removeOrt(abstractOrt);
-				ortsListenAnsicht.update(ortsListe, this);
-			}
-		});
-
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				(new OrtsAnsicht(new Ort(), ortsListe, ortsListenAnsicht)).show(primaryStage);
+			}
+		});
+		
+		btnAddDate.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				(new OrtMitBesuchsdatumAnsicht(new OrtMitBesuchsdatum(), ortsListe, ortsListenAnsicht))
+						.show(primaryStage);
 			}
 		});
 
@@ -181,11 +171,29 @@ public class OrtsListenAnsicht implements Observer {
 			}
 		});
 
-		btnAddDate.setOnAction(new EventHandler<ActionEvent>() {
+		///////////////// Button Actions and Handlers //////////////////
+		btnDel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+
+				AbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
+				if (abstractOrt == null)
+					return;
+				ortsListe.removeOrt(abstractOrt);
+				Image image = new Image(
+						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
+						true);
+				imageview.setImage(image);
+
+				ortsListe.removeOrt(abstractOrt);
+				ortsListenAnsicht.update(ortsListe, this);
+			}
+		});
+		
+		btnUndo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				(new OrtMitBesuchsdatumAnsicht(new OrtMitBesuchsdatum(), ortsListe, ortsListenAnsicht))
-						.show(primaryStage);
+				// TODO undo funktion implementieren
 			}
 		});
 
