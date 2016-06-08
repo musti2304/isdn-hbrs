@@ -16,7 +16,7 @@ public class EditCommand implements AbstractCommand {
 	}
 	
 	@Override
-	public void execute() {
+	public void execute(AbstractOrt abstractOrt) {
 		// TODO
 	}
 

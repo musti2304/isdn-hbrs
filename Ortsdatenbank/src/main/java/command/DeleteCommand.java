@@ -16,7 +16,7 @@ public class DeleteCommand implements AbstractCommand {
 	}
 	
 	@Override
-	public void execute() {
+	public void execute(AbstractOrt abstractOrt) {
 		// TODO Auto-generated method stub
 		
 	}
