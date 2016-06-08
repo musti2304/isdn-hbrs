@@ -3,7 +3,7 @@ package command;
 import model.AbstractOrt;
 import model.OrtsListe;
 
-public class AddCommand implements AbstractCommand {
+public class AddCommand implements Command {
 	
 	// Solution 1
 	private AbstractOrt abstractOrt;
