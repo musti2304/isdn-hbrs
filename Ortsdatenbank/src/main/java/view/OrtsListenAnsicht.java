@@ -1,8 +1,11 @@
 package view;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
@@ -49,10 +52,11 @@ import strategy.PrivatModusStrategy;
 import strategy.Strategy;
 
 @SuppressWarnings("restriction")
-public class OrtsListenAnsicht implements Observer {
+public class OrtsListenAnsicht implements Observer, Serializable  {
 
 	private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
 	private OrtsListe ortsListe;
+	private AbstractOrt abstractOrt;
 	private Strategy strategie;
 	private static final int SIZE_OF_OTHER_CONTROLS = 105;
 
@@ -171,6 +175,35 @@ public class OrtsListenAnsicht implements Observer {
 				}
 			}
 		});
+		btnLoad.setOnAction(new EventHandler<ActionEvent>() {
+			List<AbstractOrt> listeVonOrten;
+
+			@Override
+			public void handle(ActionEvent e) {
+				OrtsListe ortsListe = null;
+				FileInputStream fis = null;
+				ObjectInputStream in = null;
+				try {
+				    fis = new FileInputStream("myPlaces.txt");
+				    in = new ObjectInputStream(fis);
+				    ortsListe = (OrtsListe)in.readObject();
+				    System.out.println("Data load");
+				    this.listeVonOrten = ortsListe.getListeVonOrten();
+				    ortsListe.notifyObservers(listeVonOrten);
+					 ortsListenAnsicht.update(ortsListe, this);
+					 ortsListe.addLoad();
+				    in.close();
+
+				 }
+				catch(IOException ex){
+				   ex.printStackTrace();
+				}
+				catch(ClassNotFoundException ex){
+				   ex.printStackTrace();
+				}
+
+			}
+		});
 
 		///////////////// Button Actions and Handlers //////////////////
 		btnDel.setOnAction(new EventHandler<ActionEvent>() {
@@ -256,12 +289,14 @@ public class OrtsListenAnsicht implements Observer {
 
 	public void updateDisplayedList() {
 		tableViewItems.clear();
+		
 		tableViewItems.addAll(ortsListe.getListeVonOrten());
 	}
 
 	public OrtsListenAnsicht(OrtsListe ortsListe) {
 		this.ortsListe = ortsListe;
 		ortsListe.addObserver(this);
+		ortsListe.addLoad();
 	}
 
 	@Override

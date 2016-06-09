@@ -1,5 +1,8 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -41,6 +44,10 @@ public class OrtsListe extends Observable implements Serializable {
 	public boolean removeOrt(AbstractOrt abstractOrt) {
 		notifyObservers(listeVonOrten);
 		return listeVonOrten.remove(abstractOrt);
+	}
+	public boolean addLoad() {
+		notifyObservers(listeVonOrten);
+		return listeVonOrten.containsAll(listeVonOrten);
 	}
 
 }
