@@ -76,6 +76,7 @@ public class OrtsListenAnsicht implements Observer {
 	Button btnShowPlaces = new Button("Orte ausgeben");
 	Button btnDel = new Button("Ort löschen");
 	Button btnUndo = new Button("Rückgängig");
+	Button btnLoad = new Button("Laden");
 
 	final ToggleGroup group = new ToggleGroup();
 
@@ -114,7 +115,7 @@ public class OrtsListenAnsicht implements Observer {
 		hbox.setPadding(new Insets(15, 12, 15, 12));
 		hbox.setSpacing(10);
 		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
-		hbox.getChildren().addAll(btnAdd, btnAddDate, btnSave, btnDel, btnUndo);
+		hbox.getChildren().addAll(btnAdd, btnAddDate, btnSave, btnDel, btnUndo,btnLoad);
 
 		borderPane.setCenter(table);
 		borderPane.setBottom(hbox);
