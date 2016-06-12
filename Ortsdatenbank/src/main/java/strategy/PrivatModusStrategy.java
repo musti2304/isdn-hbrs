@@ -5,8 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import model.AbstractOrt;
-import model.OrtMitBesuchsdatum;
+import model.javapersistence.AbstractOrt;
+import model.javapersistence.OrtMitBesuchsdatum;
 
 public class PrivatModusStrategy implements Strategy {
 

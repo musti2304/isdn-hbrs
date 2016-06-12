@@ -1,7 +1,7 @@
 package command;
 
-import model.AbstractOrt;
-import model.OrtsListe;
+import model.javapersistence.AbstractOrt;
+import model.javapersistence.OrtsListe;
 
 public class AddCommand implements Command {
 	

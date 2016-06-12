@@ -2,8 +2,8 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import model.AbstractOrt;
-import model.OrtsListe;
+import model.javapersistence.AbstractOrt;
+import model.javapersistence.OrtsListe;
 
 @SuppressWarnings("restriction")
 public class OrtsAnsicht extends AbstractOrtsAnsicht {

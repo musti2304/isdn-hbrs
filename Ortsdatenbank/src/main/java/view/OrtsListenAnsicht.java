@@ -43,10 +43,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.AbstractOrt;
-import model.Ort;
-import model.OrtMitBesuchsdatum;
-import model.OrtsListe;
+import model.javapersistence.AbstractOrt;
+import model.javapersistence.Ort;
+import model.javapersistence.OrtMitBesuchsdatum;
+import model.javapersistence.OrtsListe;
 import strategy.OeffentlicherModusStrategy;
 import strategy.PrivatModusStrategy;
 import strategy.Strategy;
@@ -162,17 +162,7 @@ public class OrtsListenAnsicht implements Serializable  {
 
 			@Override
 			public void handle(ActionEvent e) {
-				FileOutputStream fos;
-				ObjectOutputStream out;
-				try {
-					fos = new FileOutputStream("myPlaces.txt");
-					out = new ObjectOutputStream(fos);
-					out.writeObject(ortsListe);
-					System.out.println("Data saved successfully");
-					out.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
+				OrtsListe.getInstance().save();
 			}
 		});
 		btnLoad.setOnAction(new EventHandler<ActionEvent>() {

@@ -1,6 +1,6 @@
 package command;
 
-import model.AbstractOrt;
+import model.javapersistence.AbstractOrt;
 
 public interface Command {
 	public void execute(AbstractOrt abstractOrt);

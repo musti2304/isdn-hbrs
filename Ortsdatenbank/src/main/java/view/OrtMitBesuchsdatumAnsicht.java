@@ -7,9 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import model.AbstractOrt;
-import model.OrtMitBesuchsdatum;
-import model.OrtsListe;
+import model.javapersistence.AbstractOrt;
+import model.javapersistence.OrtMitBesuchsdatum;
+import model.javapersistence.OrtsListe;
 
 @SuppressWarnings("restriction")
 public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {

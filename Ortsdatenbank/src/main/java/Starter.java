@@ -1,6 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.OrtsListe;
+import model.javapersistence.OrtsListe;
 import view.OrtsListenAnsicht;
 
 @SuppressWarnings("restriction")

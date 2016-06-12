@@ -11,8 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.AbstractOrt;
-import model.OrtsListe;
+import model.javapersistence.AbstractOrt;
+import model.javapersistence.OrtsListe;
 
 @SuppressWarnings("restriction")
 public abstract class AbstractOrtsAnsicht {

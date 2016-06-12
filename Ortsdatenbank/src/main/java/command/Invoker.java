@@ -2,7 +2,7 @@ package command;
 
 import java.util.Stack;
 
-import model.AbstractOrt;
+import model.javapersistence.AbstractOrt;
 
 public class Invoker {
 

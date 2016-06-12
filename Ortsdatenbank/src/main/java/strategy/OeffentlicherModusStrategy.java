@@ -2,7 +2,7 @@ package strategy;
 
 import java.util.List;
 
-import model.AbstractOrt;
+import model.javapersistence.AbstractOrt;
 
 public class OeffentlicherModusStrategy implements Strategy {
 
