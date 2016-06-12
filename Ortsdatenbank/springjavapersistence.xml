@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+	<bean id="OrtsListe" class="model.javapersistence.OrtsListe" factory-method="getInstance" />
+	<bean id="AbstractOrt" class="model.javapersistence.AbstractOrt" scope="prototype" />
+	<bean id="Ort" class="model.javapersistence.Ort" scope="prototype" />
+	<bean id="OrtMitBesuchsdatum" class="model.javapersistence.OrtMitBesuchsdatum" scope="prototype" />
+	
+</beans>

@@ -1,12 +1,10 @@
 package view;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.Date;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -39,29 +37,43 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.AbstractOrt;
-import model.OeffentlicherModusStrategy;
-import model.Ort;
-import model.OrtMitBesuchsdatum;
-import model.OrtsListe;
-import model.PrivatModusStrategy;
-import model.Strategy;
+import model.IAbstractOrt;
+import model.IOrtMitBesuchsdatum;
+import model.IOrtsListe;
+import model.javapersistence.Ort;
+import model.javapersistence.OrtMitBesuchsdatum;
+import model.javapersistence.OrtsListe;
+import strategy.OeffentlicherModusStrategy;
+import strategy.PrivatModusStrategy;
+import strategy.Strategy;
 
-public class OrtsListenAnsicht implements Observer {
+@SuppressWarnings("restriction")
+public class OrtsListenAnsicht implements Serializable  {
 
-	private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
-	private OrtsListe ortsListe;
+	private static ObservableList<IAbstractOrt> tableViewItems = FXCollections.observableArrayList();
+	private static IOrtsListe ortsListe;
+	private IAbstractOrt abstractOrt;
 	private Strategy strategie;
 	private static final int SIZE_OF_OTHER_CONTROLS = 105;
 
+	//////////////////// Constructor /////////////////////
+	public OrtsListenAnsicht() {}
+	
+	public OrtsListenAnsicht(IOrtsListe ortsListe) {
+		this.ortsListe = ortsListe;
+		//ortsListe.addObserver(this);
+		ortsListe.addOrt(abstractOrt);
+	}
+
+
 	/////////////////////// UI Elements ////////////////////////
- 	BorderPane borderPane = new BorderPane();
+	BorderPane borderPane = new BorderPane();
 	Scene scene = new Scene(borderPane);
 
-	TableView<AbstractOrt> table = new TableView<>();
-	TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
-	TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
-	TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
+	TableView<IAbstractOrt> table = new TableView<>();
+	TableColumn<IAbstractOrt, String> nameCol = new TableColumn<IAbstractOrt, String>("Name");
+	TableColumn<IAbstractOrt, String> anschriftCol = new TableColumn<IAbstractOrt, String>("Anschrift");
+	TableColumn<IAbstractOrt, Date> dateCol = new TableColumn<IAbstractOrt, Date>("Zuletzt besucht am");
 
 	Image image = new Image(
 			"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik", true);
@@ -72,29 +84,31 @@ public class OrtsListenAnsicht implements Observer {
 	Button btnSave = new Button("Speichern");
 	Button btnAddDate = new Button("Ort mit Datum hinzufügen");
 	Button btnShowPlaces = new Button("Orte ausgeben");
-	final Button btnDel = new Button("Ort löschen");
+	Button btnDel = new Button("Ort löschen");
+	Button btnUndo = new Button("Rückgängig");
+	Button btnLoad = new Button("Laden");
 
 	final ToggleGroup group = new ToggleGroup();
 
 	final RadioButton oeffentlicherModusRB = new RadioButton();
 	final RadioButton privatModusRB = new RadioButton();
-	HBox strategyHBox = new HBox();
-	HBox hbox = new HBox();
 	final OrtsListenAnsicht ortsListenAnsicht = this;
+	HBox hbox = new HBox();
+	HBox strategyHBox = new HBox();
 
 	public void show(final Stage primaryStage) {
 		primaryStage.setTitle("My POIs");
 
-		nameCol.setMinWidth(300);
+		nameCol.setMinWidth(200);
 		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		anschriftCol.setMinWidth(300);
 		anschriftCol.setCellValueFactory(new PropertyValueFactory<>("anschrift"));
-		dateCol.setMinWidth(300);
+		dateCol.setMinWidth(200);
 		dateCol.setCellValueFactory(new PropertyValueFactory<>("datumDesBesuchs"));
 
 		table.getColumns().addAll(nameCol, anschriftCol, dateCol);
 		table.setItems(tableViewItems);
-		
+
 		imageview.setImage(image);
 
 		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -111,7 +125,7 @@ public class OrtsListenAnsicht implements Observer {
 		hbox.setPadding(new Insets(15, 12, 15, 12));
 		hbox.setSpacing(10);
 		hbox.setStyle("-fx-background-color: linear-gradient(#6699CC, #104E8B);");
-		hbox.getChildren().addAll(btnAdd, btnDel, btnSave, btnAddDate, btnShowPlaces);
+		hbox.getChildren().addAll(btnAdd, btnAddDate, btnSave, btnDel, btnUndo,btnLoad);
 
 		borderPane.setCenter(table);
 		borderPane.setBottom(hbox);
@@ -134,56 +148,58 @@ public class OrtsListenAnsicht implements Observer {
 		primaryStage.setMinWidth(1200);
 		primaryStage.setMinHeight(500);
 
-		// Button Actions and Handlers
-		btnDel.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-
-				AbstractOrt ort = table.getSelectionModel().getSelectedItem();
-				if (ort == null)
-					return;
-				ortsListe.removeOrt(ort);
-				Image image = new Image(
-						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
-						true);
-				imageview.setImage(image);
-
-				ort.setName(nameCol.getText());
-				ort.setAnschrift(anschriftCol.getText());
-				ortsListe.removeOrt(ort);
-				ortsListenAnsicht.update(ortsListe, this);
-
-			}
-		});
-
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				(new OrtsAnsicht(new Ort(), ortsListe, ortsListenAnsicht)).show(primaryStage);
 			}
 		});
-
-		btnSave.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				FileOutputStream fos;
-				ObjectOutputStream out;
-				try {
-					fos = new FileOutputStream((new Date().getTime() + ".ser"));
-					out = new ObjectOutputStream(fos);
-					out.writeObject(ortsListe);
-					out.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-		});
-
+		
 		btnAddDate.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				(new OrtMitBesuchsdatumAnsicht(new OrtMitBesuchsdatum(), ortsListe, ortsListenAnsicht))
 						.show(primaryStage);
+			}
+		});
+
+		btnSave.setOnAction(new EventHandler<ActionEvent>() {
+			List<IAbstractOrt> listeVonOrten;
+
+			@Override
+			public void handle(ActionEvent e) {
+				OrtsListe.getInstance().save();
+			}
+		});
+		btnLoad.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				OrtsListe.getInstance().load();
+			}
+		});
+
+		///////////////// Button Actions and Handlers //////////////////
+		btnDel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
+//				if (abstractOrt == null)
+//					return;
+				ortsListe.removeOrt(abstractOrt);
+				Image image = new Image(
+						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
+						true);
+				imageview.setImage(image);
+
+				ortsListe.removeOrt(abstractOrt);
+				ortsListenAnsicht.update(); //ortsListe, this
+			}
+		});
+		
+		btnUndo.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO undo funktion implementieren
 			}
 		});
 
@@ -194,21 +210,23 @@ public class OrtsListenAnsicht implements Observer {
 			}
 		});
 
+		// Handler for the double mouse click
 		table.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
 					if (mouseEvent.getClickCount() == 2) {
-						AbstractOrt ort = table.getSelectionModel().getSelectedItem();
-						if (ort instanceof OrtMitBesuchsdatum) {
-							new OrtMitBesuchsdatumAnsicht(ort, ortsListe, ortsListenAnsicht).show(primaryStage);
+						IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
+						if (abstractOrt instanceof IOrtMitBesuchsdatum) {
+							new OrtMitBesuchsdatumAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
 						} else {
-							new OrtsAnsicht(ort, ortsListe, ortsListenAnsicht).show(primaryStage);
+							new OrtsAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
 						}
 					}
 				}
 			}
 		});
 
+		// Radio button handler
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
 				if (group.getSelectedToggle() != null) {
@@ -241,18 +259,13 @@ public class OrtsListenAnsicht implements Observer {
 		});
 	}
 
-	public void updateDisplayedList() {
+	public static void updateDisplayedList() {
 		tableViewItems.clear();
+		
 		tableViewItems.addAll(ortsListe.getListeVonOrten());
 	}
 
-	public OrtsListenAnsicht(OrtsListe ortsListe) {
-		this.ortsListe = ortsListe;
-		ortsListe.addObserver(this);
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
+	public static void update() {//Observable o, Object arg
 		updateDisplayedList();
 
 	}
@@ -288,4 +301,5 @@ public class OrtsListenAnsicht implements Observer {
 		return url;
 
 	}
+
 }

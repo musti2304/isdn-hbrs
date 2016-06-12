@@ -1,20 +1,23 @@
-package model;
+package model.javapersistence;
 
 import java.io.Serializable;
 
-public abstract class AbstractOrt implements Serializable {
+import model.IAbstractOrt;
+
+public abstract class AbstractOrt implements IAbstractOrt, Serializable {
 
 	private static final long serialVersionUID = 7367028818548018245L;
 
 	private String name;
 	private String anschrift;
 
-	public AbstractOrt() { }
+	public AbstractOrt() {
+	}
 
 	public AbstractOrt(String name, String anschrift) {
-        this.name = name;
-        this.anschrift = anschrift;
-    }
+		this.name = name;
+		this.anschrift = anschrift;
+	}
 
 	public String getName() {
 		return name;
@@ -31,7 +34,6 @@ public abstract class AbstractOrt implements Serializable {
 	public void setAnschrift(String anschrift) {
 		this.anschrift = anschrift;
 	}
-
 
 	@Override
 	public String toString() {
