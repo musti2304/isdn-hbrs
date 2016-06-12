@@ -17,7 +17,7 @@ import view.OrtsListenAnsicht;
 public class OrtsListe extends Observable implements Serializable {
 
 	private static final long serialVersionUID = 4573262376065633086L;
-	private ArrayList<AbstractOrt> listeVonOrten = new ArrayList<AbstractOrt>();
+	private transient ArrayList<AbstractOrt> listeVonOrten = new ArrayList<AbstractOrt>();
 	private static OrtsListe instance = new OrtsListe();
 
 	private OrtsListe() {
@@ -34,7 +34,7 @@ public class OrtsListe extends Observable implements Serializable {
 		return listeVonOrten;
 	}
 	
-	public static synchronized OrtsListe getInstance() {
+	public static  synchronized OrtsListe getInstance() {
 	
 		return instance;
 	}
