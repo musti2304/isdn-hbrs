@@ -1,10 +1,6 @@
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.IOrtsListe;
-import view.OrtsListenAnsicht;
+import model.ModelFactory;
 
 @SuppressWarnings("restriction")
 public class Starter extends Application {
@@ -16,10 +12,7 @@ public class Starter extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		ApplicationContext context = new FileSystemXmlApplicationContext("springjavapersistence.xml");
-		
-		IOrtsListe ortsListe = context.getBean(IOrtsListe.class);
-		OrtsListenAnsicht ortsListenAnsicht = new OrtsListenAnsicht(ortsListe);
-		ortsListenAnsicht.show(primaryStage);
+		ModelFactory modelFactory = new ModelFactory();
+		modelFactory.create(primaryStage);
 	}
 }
