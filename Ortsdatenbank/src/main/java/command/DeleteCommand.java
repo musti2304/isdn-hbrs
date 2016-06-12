@@ -1,22 +1,22 @@
 package command;
 
-import model.javapersistence.AbstractOrt;
-import model.javapersistence.OrtsListe;
+import model.IAbstractOrt;
+import model.IOrtsListe;
 
 public class DeleteCommand implements Command {
 
-	private OrtsListe ortsListe;
-	private AbstractOrt abstractOrt;
+	private IOrtsListe ortsListe;
+	private IAbstractOrt abstractOrt;
 
 	public DeleteCommand() {}
 	
-	public DeleteCommand(OrtsListe ortsListe, AbstractOrt abstractOrt) {
+	public DeleteCommand(IOrtsListe ortsListe, IAbstractOrt abstractOrt) {
 		this.ortsListe = ortsListe;
 		this.abstractOrt = abstractOrt;
 	}
 	
 	@Override
-	public void execute(AbstractOrt abstractOrt) {
+	public void execute(IAbstractOrt abstractOrt) {
 		// TODO Auto-generated method stub
 		
 	}

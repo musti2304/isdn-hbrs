@@ -8,6 +8,4 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<bean id="Ort" class="model.javapersistence.Ort" scope="prototype" />
 	<bean id="OrtMitBesuchsdatum" class="model.javapersistence.OrtMitBesuchsdatum" scope="prototype" />
 	
-	
-	<!-- Ihre Beans -->
 </beans>

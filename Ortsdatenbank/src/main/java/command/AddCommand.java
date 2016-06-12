@@ -1,22 +1,22 @@
 package command;
 
-import model.javapersistence.AbstractOrt;
+import model.IAbstractOrt;
 import model.javapersistence.OrtsListe;
 
 public class AddCommand implements Command {
 	
 	// Solution 1
-	private AbstractOrt abstractOrt;
+	private IAbstractOrt abstractOrt;
 	private int index;
 
 	public AddCommand() {}
 	
-	public AddCommand(AbstractOrt abstractOrt) {
+	public AddCommand(IAbstractOrt abstractOrt) {
 		this.abstractOrt = abstractOrt;
 	}
 	
 	@Override
-	public void execute(AbstractOrt abstractOrt) {
+	public void execute(IAbstractOrt abstractOrt) {
 		index = OrtsListe.getInstance().getListeVonOrten().indexOf(abstractOrt);
 		OrtsListe.getInstance().addOrt(abstractOrt);//.notifyObservers(/*OrtsListe.getInstance().getListeVonOrten()*/);
 	}

@@ -1,8 +1,8 @@
 package command;
 
-import model.javapersistence.AbstractOrt;
+import model.IAbstractOrt;
 
 public interface Command {
-	public void execute(AbstractOrt abstractOrt);
+	public void execute(IAbstractOrt abstractOrt);
 	public void undo();
 }

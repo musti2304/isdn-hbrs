@@ -38,8 +38,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.IAbstractOrt;
+import model.IOrtMitBesuchsdatum;
 import model.IOrtsListe;
-import model.javapersistence.AbstractOrt;
 import model.javapersistence.Ort;
 import model.javapersistence.OrtMitBesuchsdatum;
 import model.javapersistence.OrtsListe;
@@ -55,6 +55,16 @@ public class OrtsListenAnsicht implements Serializable  {
 	private IAbstractOrt abstractOrt;
 	private Strategy strategie;
 	private static final int SIZE_OF_OTHER_CONTROLS = 105;
+
+	//////////////////// Constructor /////////////////////
+	public OrtsListenAnsicht() {}
+	
+	public OrtsListenAnsicht(IOrtsListe ortsListe) {
+		this.ortsListe = ortsListe;
+		//ortsListe.addObserver(this);
+		ortsListe.addOrt(abstractOrt);
+	}
+
 
 	/////////////////////// UI Elements ////////////////////////
 	BorderPane borderPane = new BorderPane();
@@ -154,7 +164,7 @@ public class OrtsListenAnsicht implements Serializable  {
 		});
 
 		btnSave.setOnAction(new EventHandler<ActionEvent>() {
-			List<AbstractOrt> listeVonOrten;
+			List<IAbstractOrt> listeVonOrten;
 
 			@Override
 			public void handle(ActionEvent e) {
@@ -172,10 +182,9 @@ public class OrtsListenAnsicht implements Serializable  {
 		btnDel.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-
 				IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
-				if (abstractOrt == null)
-					return;
+//				if (abstractOrt == null)
+//					return;
 				ortsListe.removeOrt(abstractOrt);
 				Image image = new Image(
 						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
@@ -207,7 +216,7 @@ public class OrtsListenAnsicht implements Serializable  {
 				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
 					if (mouseEvent.getClickCount() == 2) {
 						IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
-						if (abstractOrt instanceof OrtMitBesuchsdatum) {
+						if (abstractOrt instanceof IOrtMitBesuchsdatum) {
 							new OrtMitBesuchsdatumAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
 						} else {
 							new OrtsAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
@@ -255,13 +264,6 @@ public class OrtsListenAnsicht implements Serializable  {
 		
 		tableViewItems.addAll(ortsListe.getListeVonOrten());
 	}
-
-	public OrtsListenAnsicht(OrtsListe ortsListe) {
-		this.ortsListe = ortsListe;
-		//ortsListe.addObserver(this);
-		ortsListe.addOrt(abstractOrt);
-	}
-
 
 	public static void update() {//Observable o, Object arg
 		updateDisplayedList();

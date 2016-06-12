@@ -1,26 +1,28 @@
 package command;
 
-import model.javapersistence.AbstractOrt;
+import model.IAbstractOrt;
+import model.IOrtsListe;
 import model.javapersistence.OrtsListe;
 
 public class EditCommand implements Command {
 
-	private AbstractOrt abstractOrt;
+	private IAbstractOrt abstractOrt;
+	private IOrtsListe ortsListe;
 
 	public EditCommand() {}
 	
-	public EditCommand(AbstractOrt abstractOrt) {
+	public EditCommand(IAbstractOrt abstractOrt) {
 		this.abstractOrt = abstractOrt;
 	}
 	
 	@Override
-	public void execute(AbstractOrt abstractOrt) {
+	public void execute(IAbstractOrt abstractOrt) {
 		OrtsListe.getInstance().addOrt(abstractOrt);
 	}
 
 	@Override
 	public void undo() {
-		OrtsListe.getInstance().getListeVonOrten(); //TODO
+		OrtsListe.getInstance().getListeVonOrten();
 	}
 
 }

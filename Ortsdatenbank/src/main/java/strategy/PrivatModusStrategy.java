@@ -6,8 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import model.IAbstractOrt;
-import model.javapersistence.AbstractOrt;
-import model.javapersistence.OrtMitBesuchsdatum;
+import model.IOrtMitBesuchsdatum;
 
 public class PrivatModusStrategy implements Strategy {
 
@@ -23,8 +22,8 @@ public class PrivatModusStrategy implements Strategy {
 		date = calender.getTime();
 
 		for (IAbstractOrt abstractOrt : listeVonOrten) {
-			if (abstractOrt instanceof OrtMitBesuchsdatum) {
-				OrtMitBesuchsdatum ortMitBesuchsdatum = (OrtMitBesuchsdatum) abstractOrt;
+			if (abstractOrt instanceof IOrtMitBesuchsdatum) {
+				IOrtMitBesuchsdatum ortMitBesuchsdatum = (IOrtMitBesuchsdatum) abstractOrt;
 				if (ortMitBesuchsdatum.getDatumDesBesuchs().after(date)) {
 					System.out.println(abstractOrt.toString());
 				}

@@ -10,9 +10,6 @@ import javafx.scene.control.Label;
 import model.IAbstractOrt;
 import model.IOrtMitBesuchsdatum;
 import model.IOrtsListe;
-import model.javapersistence.AbstractOrt;
-import model.javapersistence.OrtMitBesuchsdatum;
-import model.javapersistence.OrtsListe;
 
 @SuppressWarnings("restriction")
 public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
@@ -41,7 +38,7 @@ public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
 			public void handle(ActionEvent e) {
 				abstractOrt.setName(nameTextField.getText());
 				abstractOrt.setAnschrift(anschriftTextField.getText());
-				((OrtMitBesuchsdatum) abstractOrt).setDatumDesBesuchs(
+				((IOrtMitBesuchsdatum) abstractOrt).setDatumDesBesuchs(
 						Date.from(besuchsdatumDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 				if(!ortsListe.getListeVonOrten().contains(abstractOrt)) {
 					ortsListe.addOrt(abstractOrt);					

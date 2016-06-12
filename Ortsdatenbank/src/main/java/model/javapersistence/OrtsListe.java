@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 
@@ -23,7 +25,7 @@ public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 	
 	private OrtsListe() {
 		// Uncomment below to test the Save/Load feature
-//		listeVonOrten = new ArrayList<AbstractOrt>();
+//		listeVonOrten = new ArrayList<IAbstractOrt>();
 //		listeVonOrten.add(new Ort("HBRS Sankt Augustin", "Grantham-Allee 20, 53757 Sankt Augustin"));
 //		listeVonOrten.add(new Ort("HBRS Rheinbach", "Von-Liebig-Straﬂe 20, 53359 Rheinbach"));
 //		listeVonOrten.add(new Ort("HBRS Hennef", "Zum Steimelsberg 7, 53773 Hennef"));
@@ -35,7 +37,7 @@ public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 		return listeVonOrten;
 	}
 
-	public static synchronized OrtsListe getInstance() {
+	public static OrtsListe getInstance() {
 		return instance;
 	}
 
