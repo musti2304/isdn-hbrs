@@ -52,10 +52,10 @@ import strategy.PrivatModusStrategy;
 import strategy.Strategy;
 
 @SuppressWarnings("restriction")
-public class OrtsListenAnsicht implements Observer, Serializable  {
+public class OrtsListenAnsicht implements Serializable  {
 
-	private ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
-	private OrtsListe ortsListe;
+	private static ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
+	private static OrtsListe ortsListe;
 	private AbstractOrt abstractOrt;
 	private Strategy strategie;
 	private static final int SIZE_OF_OTHER_CONTROLS = 105;
@@ -176,32 +176,9 @@ public class OrtsListenAnsicht implements Observer, Serializable  {
 			}
 		});
 		btnLoad.setOnAction(new EventHandler<ActionEvent>() {
-			List<AbstractOrt> listeVonOrten;
-
 			@Override
 			public void handle(ActionEvent e) {
-				OrtsListe ortsListe = null;
-				FileInputStream fis = null;
-				ObjectInputStream in = null;
-				try {
-				    fis = new FileInputStream("myPlaces.txt");
-				    in = new ObjectInputStream(fis);
-				    ortsListe = (OrtsListe)in.readObject();
-				    System.out.println("Data load");
-				    this.listeVonOrten = ortsListe.getListeVonOrten();
-				    ortsListe.notifyObservers(listeVonOrten);
-					 ortsListenAnsicht.update(ortsListe, this);
-					 ortsListe.addLoad();
-				    in.close();
-
-				 }
-				catch(IOException ex){
-				   ex.printStackTrace();
-				}
-				catch(ClassNotFoundException ex){
-				   ex.printStackTrace();
-				}
-
+				OrtsListe.getInstance().load();
 			}
 		});
 
@@ -220,7 +197,7 @@ public class OrtsListenAnsicht implements Observer, Serializable  {
 				imageview.setImage(image);
 
 				ortsListe.removeOrt(abstractOrt);
-				ortsListenAnsicht.update(ortsListe, this);
+				ortsListenAnsicht.update(); //ortsListe, this
 			}
 		});
 		
@@ -287,7 +264,7 @@ public class OrtsListenAnsicht implements Observer, Serializable  {
 		});
 	}
 
-	public void updateDisplayedList() {
+	public static void updateDisplayedList() {
 		tableViewItems.clear();
 		
 		tableViewItems.addAll(ortsListe.getListeVonOrten());
@@ -295,12 +272,12 @@ public class OrtsListenAnsicht implements Observer, Serializable  {
 
 	public OrtsListenAnsicht(OrtsListe ortsListe) {
 		this.ortsListe = ortsListe;
-		ortsListe.addObserver(this);
-		ortsListe.addLoad();
+		//ortsListe.addObserver(this);
+		ortsListe.addOrt(abstractOrt);
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
+
+	public static void update() {//Observable o, Object arg
 		updateDisplayedList();
 
 	}
@@ -336,4 +313,5 @@ public class OrtsListenAnsicht implements Observer, Serializable  {
 		return url;
 
 	}
+
 }

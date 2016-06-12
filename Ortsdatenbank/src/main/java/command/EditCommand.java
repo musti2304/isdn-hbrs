@@ -5,24 +5,22 @@ import model.OrtsListe;
 
 public class EditCommand implements Command {
 
-	private OrtsListe ortsListe;
 	private AbstractOrt abstractOrt;
 
 	public EditCommand() {}
 	
-	public EditCommand(OrtsListe ortsListe, AbstractOrt abstractOrt) {
-		this.ortsListe = ortsListe;
+	public EditCommand(AbstractOrt abstractOrt) {
 		this.abstractOrt = abstractOrt;
 	}
 	
 	@Override
 	public void execute(AbstractOrt abstractOrt) {
-		// TODO
+		OrtsListe.getInstance().addOrt(abstractOrt);
 	}
 
 	@Override
 	public void undo() {
-		// TODO
+		OrtsListe.getInstance().getListeVonOrten(); //TODO
 	}
 
 }

@@ -43,7 +43,7 @@ public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
 				if(!ortsListe.getListeVonOrten().contains(abstractOrt)) {
 					ortsListe.addOrt(abstractOrt);					
 				}
-				ortsListenAnsicht.update(ortsListe, this);
+				OrtsListenAnsicht.update(); //ortsListe, this
 				stage.close();
 			}
 		});
@@ -57,7 +57,7 @@ public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
 		btnDel.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				ortsListe.removeOrt(abstractOrt);
-				ortsListenAnsicht.update(ortsListe, this);
+				OrtsListenAnsicht.update(); //ortsListe, this
 				stage.close();
 			}
 		});
