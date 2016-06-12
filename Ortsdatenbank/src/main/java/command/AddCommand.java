@@ -1,7 +1,7 @@
 package command;
 
 import model.IAbstractOrt;
-import model.javapersistence.OrtsListe;
+import model.hibernate.OrtsListe;
 
 public class AddCommand implements Command {
 	

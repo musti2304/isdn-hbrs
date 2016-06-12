@@ -8,10 +8,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.javapersistence.AbstractOrt;
-import model.javapersistence.Ort;
-import model.javapersistence.OrtMitBesuchsdatum;
-import model.javapersistence.OrtsListe;
+import model.hibernate.AbstractOrt;
+import model.hibernate.Ort;
+import model.hibernate.OrtMitBesuchsdatum;
+import model.hibernate.OrtsListe;
 import strategy.OeffentlicherModusStrategy;
 import strategy.PrivatModusStrategy;
 import strategy.Strategy;

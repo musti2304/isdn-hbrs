@@ -2,7 +2,7 @@ package command;
 
 import model.IAbstractOrt;
 import model.IOrtsListe;
-import model.javapersistence.OrtsListe;
+import model.hibernate.OrtsListe;
 
 public class EditCommand implements Command {
 
