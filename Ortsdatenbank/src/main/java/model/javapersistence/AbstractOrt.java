@@ -2,7 +2,9 @@ package model.javapersistence;
 
 import java.io.Serializable;
 
-public abstract class AbstractOrt implements Serializable {
+import model.IAbstractOrt;
+
+public abstract class AbstractOrt implements IAbstractOrt, Serializable {
 
 	private static final long serialVersionUID = 7367028818548018245L;
 

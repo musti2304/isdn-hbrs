@@ -11,14 +11,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.javapersistence.AbstractOrt;
-import model.javapersistence.OrtsListe;
+import model.IAbstractOrt;
+import model.IOrtsListe;
 
 @SuppressWarnings("restriction")
 public abstract class AbstractOrtsAnsicht {
 
-	private AbstractOrt abstractOrt;
-	private OrtsListe ortsListe;
+	private IAbstractOrt abstractOrt;
+	private IOrtsListe ortsListe;
 	private OrtsListenAnsicht ortsListenAnsicht;
 
 	public abstract void initEingabeFelder();

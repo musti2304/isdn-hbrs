@@ -1,8 +1,11 @@
 package model.javapersistence;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OrtMitBesuchsdatum extends AbstractOrt {
+import model.IOrtMitBesuchsdatum;
+
+public class OrtMitBesuchsdatum extends AbstractOrt implements IOrtMitBesuchsdatum, Serializable {
 
 	private static final long serialVersionUID = 7367028818548018245L;
 

@@ -5,9 +5,9 @@ import model.javapersistence.AbstractOrt;
 import model.javapersistence.OrtsListe;
 
 public interface IOrtsListe {
-	public List<AbstractOrt> getListeVonOrten();
-	public boolean addOrt(AbstractOrt abstractOrt);
+	public List<IAbstractOrt> getListeVonOrten();
+	public boolean addOrt(IAbstractOrt abstractOrt);
 	public void load();
-	public boolean removeOrt(AbstractOrt abstractOrt);
+	public boolean removeOrt(IAbstractOrt abstractOrt);
 
 }

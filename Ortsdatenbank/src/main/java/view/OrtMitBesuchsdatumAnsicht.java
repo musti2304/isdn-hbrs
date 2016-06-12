@@ -7,6 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import model.IAbstractOrt;
+import model.IOrtMitBesuchsdatum;
+import model.IOrtsListe;
 import model.javapersistence.AbstractOrt;
 import model.javapersistence.OrtMitBesuchsdatum;
 import model.javapersistence.OrtsListe;
@@ -14,15 +17,15 @@ import model.javapersistence.OrtsListe;
 @SuppressWarnings("restriction")
 public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
 
-	private AbstractOrt abstractOrt;
-	private OrtsListe ortsListe;
+	private IAbstractOrt abstractOrt;
+	private IOrtsListe ortsListe;
 	private OrtsListenAnsicht ortsListenAnsicht;
-	private OrtMitBesuchsdatum ortMitBesuchsdatum;
+	private IOrtMitBesuchsdatum ortMitBesuchsdatum;
 
 	final Label besuchsDatumLabel = new Label("Letztes Besuchsdatum");
 	final DatePicker besuchsdatumDatePicker = new DatePicker();
 
-	public OrtMitBesuchsdatumAnsicht(AbstractOrt abstractOrt, OrtsListe ortsListe,
+	public OrtMitBesuchsdatumAnsicht(IAbstractOrt abstractOrt, IOrtsListe ortsListe,
 			OrtsListenAnsicht ortsListenAnsicht) {
 		this.abstractOrt = abstractOrt;
 		this.ortsListe = ortsListe;

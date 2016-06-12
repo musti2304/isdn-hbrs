@@ -1,6 +1,10 @@
 package model.javapersistence;
 
-public class Ort extends AbstractOrt implements Cloneable {
+import java.io.Serializable;
+
+import model.IOrt;
+
+public class Ort extends AbstractOrt implements IOrt, Serializable, Cloneable {
 
 	private static final long serialVersionUID = 7367028818548018245L;
 

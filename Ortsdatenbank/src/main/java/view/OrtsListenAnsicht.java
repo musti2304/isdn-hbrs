@@ -1,16 +1,10 @@
 package view;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,6 +37,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.IAbstractOrt;
+import model.IOrtsListe;
 import model.javapersistence.AbstractOrt;
 import model.javapersistence.Ort;
 import model.javapersistence.OrtMitBesuchsdatum;
@@ -54,9 +50,9 @@ import strategy.Strategy;
 @SuppressWarnings("restriction")
 public class OrtsListenAnsicht implements Serializable  {
 
-	private static ObservableList<AbstractOrt> tableViewItems = FXCollections.observableArrayList();
-	private static OrtsListe ortsListe;
-	private AbstractOrt abstractOrt;
+	private static ObservableList<IAbstractOrt> tableViewItems = FXCollections.observableArrayList();
+	private static IOrtsListe ortsListe;
+	private IAbstractOrt abstractOrt;
 	private Strategy strategie;
 	private static final int SIZE_OF_OTHER_CONTROLS = 105;
 
@@ -64,10 +60,10 @@ public class OrtsListenAnsicht implements Serializable  {
 	BorderPane borderPane = new BorderPane();
 	Scene scene = new Scene(borderPane);
 
-	TableView<AbstractOrt> table = new TableView<>();
-	TableColumn<AbstractOrt, String> nameCol = new TableColumn<AbstractOrt, String>("Name");
-	TableColumn<AbstractOrt, String> anschriftCol = new TableColumn<AbstractOrt, String>("Anschrift");
-	TableColumn<AbstractOrt, Date> dateCol = new TableColumn<AbstractOrt, Date>("Zuletzt besucht am");
+	TableView<IAbstractOrt> table = new TableView<>();
+	TableColumn<IAbstractOrt, String> nameCol = new TableColumn<IAbstractOrt, String>("Name");
+	TableColumn<IAbstractOrt, String> anschriftCol = new TableColumn<IAbstractOrt, String>("Anschrift");
+	TableColumn<IAbstractOrt, Date> dateCol = new TableColumn<IAbstractOrt, Date>("Zuletzt besucht am");
 
 	Image image = new Image(
 			"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik", true);
@@ -177,7 +173,7 @@ public class OrtsListenAnsicht implements Serializable  {
 			@Override
 			public void handle(ActionEvent e) {
 
-				AbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
+				IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
 				if (abstractOrt == null)
 					return;
 				ortsListe.removeOrt(abstractOrt);
@@ -210,7 +206,7 @@ public class OrtsListenAnsicht implements Serializable  {
 			public void handle(MouseEvent mouseEvent) {
 				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
 					if (mouseEvent.getClickCount() == 2) {
-						AbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
+						IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
 						if (abstractOrt instanceof OrtMitBesuchsdatum) {
 							new OrtMitBesuchsdatumAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
 						} else {

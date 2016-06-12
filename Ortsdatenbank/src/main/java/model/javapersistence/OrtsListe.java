@@ -6,19 +6,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
+import model.IAbstractOrt;
+import model.IOrtsListe;
 import view.OrtsListenAnsicht;
 
-public class OrtsListe extends Observable implements Serializable {
+public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 
 	private static final long serialVersionUID = 4573262376065633086L;
-	private ArrayList<AbstractOrt> listeVonOrten = new ArrayList<AbstractOrt>();
+	private ArrayList<IAbstractOrt> listeVonOrten = new ArrayList<IAbstractOrt>();
 	private static OrtsListe instance = new OrtsListe();
 
 	
@@ -32,7 +31,7 @@ public class OrtsListe extends Observable implements Serializable {
 //				new Date().from(Instant.now())));
 	}
 
-	public List<AbstractOrt> getListeVonOrten() {
+	public List<IAbstractOrt> getListeVonOrten() {
 		return listeVonOrten;
 	}
 
@@ -40,9 +39,16 @@ public class OrtsListe extends Observable implements Serializable {
 		return instance;
 	}
 
-	public boolean addOrt(AbstractOrt abstractOrt) {
+	@Override
+	public boolean addOrt(IAbstractOrt abstractOrt) {
 		notifyObservers(listeVonOrten);
 		return listeVonOrten.add(abstractOrt);
+	}
+	
+	@Override
+	public boolean removeOrt(IAbstractOrt abstractOrt) {
+		notifyObservers(listeVonOrten);
+		return listeVonOrten.remove(abstractOrt);
 	}
 
 	public void load() {
@@ -66,11 +72,6 @@ public class OrtsListe extends Observable implements Serializable {
 		}
 		// instance.notifyObservers(listeVonOrten);
 
-	}
-
-	public boolean removeOrt(AbstractOrt abstractOrt) {
-		notifyObservers(listeVonOrten);
-		return listeVonOrten.remove(abstractOrt);
 	}
 
 	public void save() {

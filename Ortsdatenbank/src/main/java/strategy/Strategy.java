@@ -2,10 +2,10 @@ package strategy;
 
 import java.util.List;
 
-import model.javapersistence.AbstractOrt;
+import model.IAbstractOrt;
 
 public interface Strategy {
 
-	void ausgabeDerOrte(List<AbstractOrt> listeVonOrten);
+	void ausgabeDerOrte(List<IAbstractOrt> listeVonOrten);
 
 }
