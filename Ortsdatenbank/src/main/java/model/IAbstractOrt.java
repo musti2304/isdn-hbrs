@@ -5,6 +5,7 @@ public interface IAbstractOrt {
 	public void setName(String name);
 	public String getAnschrift();
 	public void setAnschrift(String anschrift);
+//	public IAbstractOrt clone();
 
 
 }

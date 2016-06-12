@@ -262,7 +262,7 @@ public class OrtsListenAnsicht implements Serializable  {
 	public static void updateDisplayedList() {
 		tableViewItems.clear();
 		
-		tableViewItems.addAll(ortsListe.getListeVonOrten());
+		tableViewItems.addAll(OrtsListe.getInstance().getListeVonOrten());
 	}
 
 	public static void update() {//Observable o, Object arg

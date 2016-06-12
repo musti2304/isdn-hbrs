@@ -12,15 +12,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 import model.IAbstractOrt;
 import model.IOrtsListe;
+import model.ModelFactory;
 import view.OrtsListenAnsicht;
 
 public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 
+	@OneToMany
+	@JoinColumn(name="ortsID")
+	private List<IAbstractOrt> listeVonOrten = new ArrayList<IAbstractOrt>();
 	private static final long serialVersionUID = 4573262376065633086L;
-	private ArrayList<IAbstractOrt> listeVonOrten = new ArrayList<IAbstractOrt>();
-	private static OrtsListe instance = new OrtsListe();
+	private static IOrtsListe instance = new OrtsListe();
 
 	
 	private OrtsListe() {
@@ -37,7 +46,7 @@ public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 		return listeVonOrten;
 	}
 
-	public static OrtsListe getInstance() {
+	public static IOrtsListe getInstance() {
 		return instance;
 	}
 
@@ -54,39 +63,16 @@ public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 	}
 
 	public void load() {
-		OrtsListe ortsListe = null;
-		FileInputStream fis = null;
-		ObjectInputStream in = null;
-		try {
-			fis = new FileInputStream("myPlaces.txt");
-			in = new ObjectInputStream(fis);
-			instance = (OrtsListe) in.readObject();
-			System.out.println("Data load");
-			this.listeVonOrten = instance.listeVonOrten;
-			// instance.notifyObservers(listeVonOrten);
-			OrtsListenAnsicht.update();// ortsListe, this
-			in.close();
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		// instance.notifyObservers(listeVonOrten);
-
+		listeVonOrten = new ModelFactory(new FileSystemXmlApplicationContext("springhibernate.xml")).getOrtsDAO().getOrte();
+		setChanged();
+		notifyObservers();
+		OrtsListenAnsicht.update();
 	}
 
 	public void save() {
-		FileOutputStream fos;
-		ObjectOutputStream out;
-		try {
-			fos = new FileOutputStream("myPlaces.txt");
-			out = new ObjectOutputStream(fos);
-			out.writeObject(OrtsListe.getInstance());
-			System.out.println("Data saved successfully");
-			out.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
+		ModelFactory modelFactory = new ModelFactory(new FileSystemXmlApplicationContext("springhibernate.xml"));
+		for(IAbstractOrt abstractOrt : listeVonOrten) {
+			modelFactory.getOrtsDAO().saveOrt((IAbstractOrt) abstractOrt); 
 		}
 	}
 }

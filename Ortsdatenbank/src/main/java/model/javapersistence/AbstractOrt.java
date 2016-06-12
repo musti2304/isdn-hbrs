@@ -2,6 +2,8 @@ package model.javapersistence;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+
 import model.IAbstractOrt;
 
 public abstract class AbstractOrt implements IAbstractOrt, Serializable {
@@ -19,6 +21,7 @@ public abstract class AbstractOrt implements IAbstractOrt, Serializable {
 		this.anschrift = anschrift;
 	}
 
+    @Column(name="ORTS_NAME")
 	public String getName() {
 		return name;
 	}
@@ -27,6 +30,7 @@ public abstract class AbstractOrt implements IAbstractOrt, Serializable {
 		this.name = name;
 	}
 
+    @Column(name="ORTS_ANSCHRIFT")
 	public String getAnschrift() {
 		return anschrift;
 	}

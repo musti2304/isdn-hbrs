@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import model.IAbstractOrt;
 import model.IOrtsListe;
+import model.hibernate.OrtsListe;
 
 @SuppressWarnings("restriction")
 public class OrtsAnsicht extends AbstractOrtsAnsicht {
@@ -25,9 +26,9 @@ public class OrtsAnsicht extends AbstractOrtsAnsicht {
 			public void handle(ActionEvent e) {
 				abstractOrt.setName(nameTextField.getText());
 				abstractOrt.setAnschrift(anschriftTextField.getText());
-				if(!ortsListe.getListeVonOrten().contains(abstractOrt)) {
-					ortsListe.addOrt(abstractOrt);					
-				}
+//				if(!OrtsListe.getInstance().getListeVonOrten().contains(abstractOrt)) {
+//					ortsListe.addOrt(abstractOrt);					
+//				}
 				OrtsListenAnsicht.update(); //ortsListe, this
 				stage.close();
 			}

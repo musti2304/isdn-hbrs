@@ -15,10 +15,6 @@ public class Ort extends AbstractOrt implements IOrt, Serializable, Cloneable {
 		super(name, anschrift);
 	}
 
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
-
 	@Override
 	public String toString() {
 		return super.getName() + ", " + super.getAnschrift();

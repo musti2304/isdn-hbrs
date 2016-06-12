@@ -1,18 +1,36 @@
 package model;
 
-import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import view.OrtsListenAnsicht;
-
 public class ModelFactory {
+	private ApplicationContext context;
+	
+	public ModelFactory(){
+		context = new FileSystemXmlApplicationContext("springhibernate.xml");
+	}
+	
+	public ModelFactory(ApplicationContext applicationContext){
+		this.context = applicationContext;
+	}
+	
+	public IOrtsListe getOrtsListe(){
+		return (IOrtsListe)context.getBean("OrtsListe");
+	}
 
-	public void create(Stage primaryStage) {
-		ApplicationContext context = new FileSystemXmlApplicationContext("springjavapersistence.xml");
-
-		IOrtsListe ortsListe = context.getBean(IOrtsListe.class);
-		OrtsListenAnsicht ortsListenAnsicht = new OrtsListenAnsicht(ortsListe);
-		ortsListenAnsicht.show(primaryStage);
+	public IAbstractOrt getAbstractOrt(){
+		return (IAbstractOrt)context.getBean("AbstractOrt");
+	}
+	
+	public IOrt getOrt(){
+		return (IOrt)context.getBean("Ort");
+	}
+	
+	public IOrtMitBesuchsdatum getOrtMitBesuchsDatum(){
+		return (IOrtMitBesuchsdatum)context.getBean("OrtMitBesuchsdatum");
+	}
+	
+	public IOrtsDAO getOrtsDAO() {
+		return (IOrtsDAO)context.getBean("OrtsDAO");
 	}
 }

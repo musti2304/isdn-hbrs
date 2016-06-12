@@ -27,7 +27,7 @@ public class TestStrategy {
 	@Before
 	public void setUp() {
 		listeVonOrten = new ArrayList<AbstractOrt>();
-		ortsListe = OrtsListe.getInstance();
+		ortsListe = (OrtsListe) OrtsListe.getInstance();
 		initPlaces();	
 	}
 	

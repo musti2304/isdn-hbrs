@@ -19,25 +19,25 @@ import view.OrtsListenAnsicht;
 public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 
 	private static final long serialVersionUID = 4573262376065633086L;
-	private ArrayList<IAbstractOrt> listeVonOrten = new ArrayList<IAbstractOrt>();
-	private static OrtsListe instance = new OrtsListe();
+	private List<IAbstractOrt> listeVonOrten = new ArrayList<IAbstractOrt>();
+	private static IOrtsListe instance = new OrtsListe();
 
 	
 	private OrtsListe() {
 		// Uncomment below to test the Save/Load feature
-//		listeVonOrten = new ArrayList<IAbstractOrt>();
-//		listeVonOrten.add(new Ort("HBRS Sankt Augustin", "Grantham-Allee 20, 53757 Sankt Augustin"));
-//		listeVonOrten.add(new Ort("HBRS Rheinbach", "Von-Liebig-Straße 20, 53359 Rheinbach"));
-//		listeVonOrten.add(new Ort("HBRS Hennef", "Zum Steimelsberg 7, 53773 Hennef"));
-//		listeVonOrten.add(new OrtMitBesuchsdatum("CI Mobile Minds GmbH", "Marie-Curie-Straße 10, 51103 Köln",
-//				new Date().from(Instant.now())));
+		listeVonOrten = new ArrayList<IAbstractOrt>();
+		listeVonOrten.add(new Ort("HBRS Sankt Augustin", "Grantham-Allee 20, 53757 Sankt Augustin"));
+		listeVonOrten.add(new Ort("HBRS Rheinbach", "Von-Liebig-Straße 20, 53359 Rheinbach"));
+		listeVonOrten.add(new Ort("HBRS Hennef", "Zum Steimelsberg 7, 53773 Hennef"));
+		listeVonOrten.add(new OrtMitBesuchsdatum("CI Mobile Minds GmbH", "Marie-Curie-Straße 10, 51103 Köln",
+				new Date().from(Instant.now())));
 	}
 
 	public List<IAbstractOrt> getListeVonOrten() {
 		return listeVonOrten;
 	}
 
-	public static OrtsListe getInstance() {
+	public static IOrtsListe getInstance() {
 		return instance;
 	}
 
@@ -62,7 +62,7 @@ public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 			in = new ObjectInputStream(fis);
 			instance = (OrtsListe) in.readObject();
 			System.out.println("Data load");
-			this.listeVonOrten = instance.listeVonOrten;
+			this.listeVonOrten = instance.getListeVonOrten();
 			// instance.notifyObservers(listeVonOrten);
 			OrtsListenAnsicht.update();// ortsListe, this
 			in.close();
