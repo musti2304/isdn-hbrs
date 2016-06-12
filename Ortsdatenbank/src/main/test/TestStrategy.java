@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,14 +8,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.AbstractOrt;
-import model.Ort;
-import model.OrtMitBesuchsdatum;
-import model.OrtsListe;
+import model.javapersistence.AbstractOrt;
+import model.javapersistence.Ort;
+import model.javapersistence.OrtMitBesuchsdatum;
+import model.javapersistence.OrtsListe;
 import strategy.OeffentlicherModusStrategy;
 import strategy.PrivatModusStrategy;
 import strategy.Strategy;
-import view.OrtsListenAnsicht;
 
 public class TestStrategy {
 
