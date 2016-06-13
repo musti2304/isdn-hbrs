@@ -66,8 +66,6 @@ public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 
 	public void load() {
 		listeVonOrten = new ModelFactory(new FileSystemXmlApplicationContext("springhibernate.xml")).getOrtsDAO().getOrte();
-		setChanged();
-		notifyObservers();
 		ortsListenAnsicht.update();
 	}
 

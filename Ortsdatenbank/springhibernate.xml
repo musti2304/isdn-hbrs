@@ -13,6 +13,8 @@
 		<property name="dataSource" ref="ourDataSource" />
 		<property name="annotatedClasses">
 			<list>
+				<!-- Frage: Wieso kommt hier nicht die abstrakte Klasse rein? -->
+				
 				<value>model.hibernate.Ort</value>
 				<value>model.hibernate.OrtMitBesuchsdatum</value>
 				<value>model.hibernate.OrtsListe</value>
