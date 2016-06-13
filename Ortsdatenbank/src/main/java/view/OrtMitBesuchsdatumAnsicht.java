@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import model.IAbstractOrt;
 import model.IOrtMitBesuchsdatum;
 import model.IOrtsListe;
+import model.javapersistence.OrtsListe;
 
 @SuppressWarnings("restriction")
 public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
@@ -43,7 +44,7 @@ public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
 				if(!ortsListe.getListeVonOrten().contains(abstractOrt)) {
 					ortsListe.addOrt(abstractOrt);					
 				}
-				OrtsListenAnsicht.update(); //ortsListe, this
+				ortsListenAnsicht.update(); //ortsListe, this
 				stage.close();
 			}
 		});
@@ -57,7 +58,7 @@ public class OrtMitBesuchsdatumAnsicht extends AbstractOrtsAnsicht {
 		btnDel.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				ortsListe.removeOrt(abstractOrt);
-				OrtsListenAnsicht.update(); //ortsListe, this
+				ortsListenAnsicht.update(); //ortsListe, this
 				stage.close();
 			}
 		});

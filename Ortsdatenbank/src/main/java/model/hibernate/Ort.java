@@ -14,7 +14,6 @@ import model.IOrt;
 
 @Entity
 @DiscriminatorValue("Ort")
-@Table(name="ORT")
 public class Ort extends AbstractOrt implements IOrt, Serializable, Cloneable {
 		
 	private static final long serialVersionUID = 7367028818548018245L;

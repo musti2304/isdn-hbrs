@@ -19,6 +19,7 @@ import view.OrtsListenAnsicht;
 public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 
 	private static final long serialVersionUID = 4573262376065633086L;
+	OrtsListenAnsicht ortsListenAnsicht = new OrtsListenAnsicht();
 	private List<IAbstractOrt> listeVonOrten = new ArrayList<IAbstractOrt>();
 	private static IOrtsListe instance = new OrtsListe();
 
@@ -64,7 +65,7 @@ public class OrtsListe extends Observable implements IOrtsListe, Serializable {
 			System.out.println("Data load");
 			this.listeVonOrten = instance.getListeVonOrten();
 			// instance.notifyObservers(listeVonOrten);
-			OrtsListenAnsicht.update();// ortsListe, this
+			ortsListenAnsicht.update();// ortsListe, this
 			in.close();
 
 		} catch (IOException ex) {

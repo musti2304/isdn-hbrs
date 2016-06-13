@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -11,8 +12,7 @@ import javax.persistence.Table;
 import model.IOrtMitBesuchsdatum;
 
 @Entity
-@DiscriminatorValue("OrtMitBesuchsdatum")
-@Table(name="ORT_MIT_DATUM")
+@DiscriminatorValue("OrtMitDatum")
 public class OrtMitBesuchsdatum extends AbstractOrt implements IOrtMitBesuchsdatum, Serializable {
 
 	private static final long serialVersionUID = 7367028818548018245L;
@@ -27,12 +27,12 @@ public class OrtMitBesuchsdatum extends AbstractOrt implements IOrtMitBesuchsdat
 		super(name, anschrift);
 		this.datumDesBesuchs = datum;
 	}
-
+	
 	@Column(name="ORTS_DATUM")
 	public Date getDatumDesBesuchs() {
 		return datumDesBesuchs;
 	}
-
+	
 	public void setDatumDesBesuchs(Date datumDesBesuchs) {
 		this.datumDesBesuchs = datumDesBesuchs;
 	}

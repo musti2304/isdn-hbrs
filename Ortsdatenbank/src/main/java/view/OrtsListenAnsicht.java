@@ -151,14 +151,14 @@ public class OrtsListenAnsicht implements Serializable  {
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				(new OrtsAnsicht(new Ort(), ortsListe, ortsListenAnsicht)).show(primaryStage);
+				(new OrtsAnsicht(new Ort(), OrtsListe.getInstance(), ortsListenAnsicht)).show(primaryStage);
 			}
 		});
 		
 		btnAddDate.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				(new OrtMitBesuchsdatumAnsicht(new OrtMitBesuchsdatum(), ortsListe, ortsListenAnsicht))
+				(new OrtMitBesuchsdatumAnsicht(new OrtMitBesuchsdatum(), OrtsListe.getInstance(), ortsListenAnsicht))
 						.show(primaryStage);
 			}
 		});
@@ -185,13 +185,12 @@ public class OrtsListenAnsicht implements Serializable  {
 				IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
 //				if (abstractOrt == null)
 //					return;
-				ortsListe.removeOrt(abstractOrt);
+				OrtsListe.getInstance().removeOrt(abstractOrt);
 				Image image = new Image(
 						"http://staticmap.openstreetmap.de/staticmap.php?center=51.7,9.5&zoom=5&size=300x405&maptype=mapnik",
 						true);
 				imageview.setImage(image);
 
-				ortsListe.removeOrt(abstractOrt);
 				ortsListenAnsicht.update(); //ortsListe, this
 			}
 		});
@@ -206,7 +205,7 @@ public class OrtsListenAnsicht implements Serializable  {
 		btnShowPlaces.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				strategie.ausgabeDerOrte(ortsListe.getListeVonOrten());
+				strategie.ausgabeDerOrte(OrtsListe.getInstance().getListeVonOrten());
 			}
 		});
 
@@ -217,9 +216,9 @@ public class OrtsListenAnsicht implements Serializable  {
 					if (mouseEvent.getClickCount() == 2) {
 						IAbstractOrt abstractOrt = table.getSelectionModel().getSelectedItem();
 						if (abstractOrt instanceof IOrtMitBesuchsdatum) {
-							new OrtMitBesuchsdatumAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
+							new OrtMitBesuchsdatumAnsicht(abstractOrt, OrtsListe.getInstance(), ortsListenAnsicht).show(primaryStage);
 						} else {
-							new OrtsAnsicht(abstractOrt, ortsListe, ortsListenAnsicht).show(primaryStage);
+							new OrtsAnsicht(abstractOrt, OrtsListe.getInstance(), ortsListenAnsicht).show(primaryStage);
 						}
 					}
 				}
@@ -265,7 +264,7 @@ public class OrtsListenAnsicht implements Serializable  {
 		tableViewItems.addAll(OrtsListe.getInstance().getListeVonOrten());
 	}
 
-	public static void update() {//Observable o, Object arg
+	public void update() {//Observable o, Object arg
 		updateDisplayedList();
 
 	}
