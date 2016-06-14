@@ -24,7 +24,7 @@ public class OrtsDAO implements IOrtsDAO {
 
 	@Override
 	public List<IAbstractOrt> getOrte() {
-		Query queryObject = session.createQuery("from Ort AND OrtMitDatum");
+		Query queryObject = session.createQuery("from Ort");
 		return queryObject.list();
 	}
 }

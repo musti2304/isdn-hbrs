@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Jun 14 14:59:49 CEST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0155-4eff-19d9-00000ac90ec0 
+on database directory /Users/myousef/Documents/dev/repo/isdn/Ortsdatenbank/ortsdatenbank with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
+Loaded from file:/Users/myousef/.m2/repository/org/apache/derby/derby/10.11.1.1/derby-10.11.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_77-b03
+user.dir=/Users/myousef/Documents/dev/repo/isdn/Ortsdatenbank
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.11.4
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
