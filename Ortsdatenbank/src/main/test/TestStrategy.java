@@ -15,17 +15,15 @@ import model.hibernate.OrtsListe;
 import strategy.OeffentlicherModusStrategy;
 import strategy.PrivatModusStrategy;
 import strategy.Strategy;
-
 public class TestStrategy {
 
-	private Strategy strategy;
+
 	private List<AbstractOrt> listeVonOrten;
 	private OrtsListe ortsListe;
 	Strategy publicStrategy = new OeffentlicherModusStrategy();
 	Strategy privateStrategy = new PrivatModusStrategy();
 	
-	@Before
-	public void setUp() {
+	private Strategy strategy;
 		listeVonOrten = new ArrayList<AbstractOrt>();
 		ortsListe = (OrtsListe) OrtsListe.getInstance();
 		initPlaces();	
@@ -38,20 +36,24 @@ public class TestStrategy {
 		listeVonOrten.add(new OrtMitBesuchsdatum("CI Mobile Minds GmbH", "Marie-Curie-Straﬂe 10, 51103 Kˆln", new Date().from(Instant.now())));
 		listeVonOrten.add(new OrtMitBesuchsdatum("Testort", "Teststraﬂe 99", new Date(2016, 02, 20)));	
 	}
-
 	@Test
 	public void testCountOfAllPlaces() {
 		Assert.assertThat(listeVonOrten.size(), CoreMatchers.is(5));
-	}
-	
-	@Test
+    	listeVonOrten.add(new Ort("Campus St. Augustin Hochschule Bonn-Rhein-Sieg", "Grantham-Allee 20, 53757 Sankt Augustin"));
+        listeVonOrten.add(new Ort("Campus Rheinbach Hochschule Bonn-Rhein-Sieg", "von-Liebig-Straﬂe 20, 53359 Rheinbach"));
+        listeVonOrten.add(new Ort("Campus Hennef Hochschule Bonn-Rhein-Sieg", "Zum Steimelsberg 7, 53773 Hennef"));
 	public void showPublicPlaces() {
 		// TODO
-	}
 	
 	@Test
 	public void showPrivatePlaces() {
 		// TODO
+	}
+	}
+	
+	@Test
+	public void testCountOfPlaces() {
+		Assert.assertThat(listeVonOrten.size(), CoreMatchers.is(4));
 	}
 
 }
